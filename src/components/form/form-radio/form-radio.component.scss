@@ -1,0 +1,11 @@
+@import '../../../styles/constants';
+
+:host {
+  > label {
+    margin-right: $margin-small;
+
+    > input {
+      margin-right: $margin-small;
+    }
+  }
+}

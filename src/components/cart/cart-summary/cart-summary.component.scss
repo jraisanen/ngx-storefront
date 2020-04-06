@@ -1,0 +1,11 @@
+@import '../../../styles/constants';
+
+:host {
+  display: block;
+  padding-top: $margin-medium;
+  text-align: right;
+
+  > strong {
+    margin-right: $margin-medium;
+  }
+}

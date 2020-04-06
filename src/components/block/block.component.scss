@@ -1,0 +1,27 @@
+@import '../../styles/constants';
+@import '../../styles/mixins';
+
+:host {
+  display: block;
+  height: 100%;
+  padding: $margin-small;
+
+  > div {
+    position: relative;
+    background-color: $color-f5f5f5;
+    background-size: cover;
+    height: 100%;
+
+    > h3 {
+      position: absolute;
+      bottom: $margin-large;
+      left: $margin-large;
+      margin: 0;
+      line-height: 1;
+    }
+
+    > a {
+      @include fill(absolute);
+    }
+  }
+}

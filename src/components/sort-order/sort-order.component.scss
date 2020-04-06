@@ -1,0 +1,38 @@
+@import '../../styles/constants';
+@import '../../styles/mixins';
+
+:host {
+  position: relative;
+  white-space: nowrap;
+
+  > .title {
+    > button {
+      @include toggle;
+
+      > span {
+        > strong {
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  > ul {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    z-index: 10;
+    background: $color-white;
+    box-shadow: 0 0 3px #999;
+
+    &.active {
+      display: block;
+    }
+
+    > li {
+      padding: $margin-small;
+      cursor: pointer;
+    }
+  }
+}

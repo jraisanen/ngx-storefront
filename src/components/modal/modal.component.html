@@ -1,0 +1,8 @@
+<sf-modal-login *ngIf="modalService.view === ModalView.Login"
+  (onViewChange)="onViewChange($event)"></sf-modal-login>
+
+<sf-modal-register *ngIf="modalService.view === ModalView.Register"
+  (onViewChange)="onViewChange($event)"></sf-modal-register>
+
+<sf-modal-reset-password *ngIf="modalService.view === ModalView.ResetPassword"
+  (onViewChange)="onViewChange($event)"></sf-modal-reset-password>

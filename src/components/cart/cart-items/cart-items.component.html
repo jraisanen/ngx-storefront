@@ -1,0 +1,39 @@
+<sf-column>
+  <sf-row>
+    <sf-container *ngFor="let label of labels">
+      <strong *ngIf="label">{{label}}</strong>
+    </sf-container>
+  </sf-row>
+  <sf-column>
+    <sf-row *ngFor="let item of cart.items">
+      <sf-container class="image">
+        <sf-image
+          [image]="{ src: env.productImageUrl + item.extension_attributes.images[0], alt: item.name }"
+        ></sf-image>
+      </sf-container>
+      <sf-container class="name">
+        <a routerLink="/product/{{item.extension_attributes.key}}">{{item.name}}</a>
+      </sf-container>
+      <sf-container class="unit-price">
+        <span>{{item.price}}</span>
+      </sf-container>
+      <sf-container class="quantity">
+        <button
+          class="icon icon-minus icon-before icon-small"
+          (click)="cartService.updateItem(item, Direction.Decrease)"
+        ></button>
+        <span>{{item.qty}}</span>
+        <button
+          class="icon icon-plus icon-before icon-small"
+          (click)="cartService.updateItem(item, Direction.Increase)"
+        ></button>
+      </sf-container>
+      <sf-container class="total-price">
+        <span>{{item.price * item.qty}}</span>
+      </sf-container>
+      <sf-container class="delete">
+        <button class="icon icon-close icon-before icon-small" (click)="cartService.removeItem(item)"></button>
+      </sf-container>
+    </sf-row>
+  </sf-column>
+</sf-column>

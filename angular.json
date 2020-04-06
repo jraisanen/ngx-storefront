@@ -1,0 +1,23 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "",
+  "projects": {
+    "storefront": {
+      "projectType": "library",
+      "root": "src",
+      "sourceRoot": "src",
+      "prefix": "sf",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "tsconfig.json",
+            "project": "src/ng-package.json"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "storefront"
+}

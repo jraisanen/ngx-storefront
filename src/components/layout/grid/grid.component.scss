@@ -1,0 +1,7 @@
+@import '../../../styles/constants';
+
+:host {
+  display: flex;
+  flex-flow: wrap;
+  margin: -$margin-small;
+}

@@ -1,0 +1,105 @@
+@import 'constants';
+@import 'functions';
+
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin center($type) {
+  position: absolute;
+
+  @if $type == 'x' {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @if $type == 'y' {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @if $type == '3d' {
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+  }
+}
+
+@mixin fill($position) {
+  position: $position;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+@mixin layout {
+  display: block;
+  width: 100%;
+  max-width: calc(1440px + (#{$margin-large} * 2));
+  margin: 0 auto;
+  padding: $margin-large $margin-large;
+}
+
+@mixin toggle {
+  position: relative;
+  padding-right: $margin-medium;
+
+  &::after {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%) rotate(180deg);
+    transition: transform 200ms ease;
+
+    @include size(20px);
+  }
+
+  &.active {
+    &::after {
+      transform: translateY(-50%) rotate(270deg);
+    }
+  }
+}
+
+@mixin flex($direction) {
+  display: flex;
+  flex-direction: $direction;
+}
+
+@mixin icon($name, $color: $color-black, $view-box: '0 0 512 512') {
+  background-image: icon($name, $color, $view-box);
+}
+
+@mixin form {
+  background: $color-white;
+  padding: $margin-medium;
+  width: 100%;
+  max-width: 400px;
+
+  @include center('3d');
+
+  > a {
+    display: inline-block;
+    margin-bottom: $margin-small;
+  }
+
+  > .action {
+    display: block;
+    width: 100%;
+    padding: $margin-small;
+    margin-bottom: $margin-small;
+    text-align: center;
+  }
+
+  > .close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+
+    @include size(20px);
+  }
+}

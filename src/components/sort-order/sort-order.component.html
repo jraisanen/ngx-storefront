@@ -1,0 +1,12 @@
+<div class="title">
+  <button [class.active]="isSortOrderMenuActive"
+    class="icon icon-chevron icon-after icon-small"
+    (click)="isSortOrderMenuActive = !isSortOrderMenuActive">
+    <span><strong>Sort by:</strong> {{ selectedSortOrder.label }}</span>
+  </button>
+</div>
+<ul [class.active]="isSortOrderMenuActive">
+  <li *ngFor="let sortOrderMenuItem of sortOrderMenuItems" (click)="onSelect(sortOrderMenuItem)">
+    {{ sortOrderMenuItem.label }}
+  </li>
+</ul>

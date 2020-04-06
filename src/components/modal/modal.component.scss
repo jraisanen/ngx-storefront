@@ -1,0 +1,13 @@
+@import '../../styles/constants';
+@import '../../styles/mixins';
+
+:host {
+  display: none;
+  background: rgba(0, 0, 0, 0.3);
+
+  @include fill(fixed);
+
+  &.active {
+    display: block;
+  }
+}

@@ -1,0 +1,54 @@
+@import '../../styles/constants';
+@import '../../styles/mixins';
+
+:host {
+  position: relative;
+  top: 50%;
+  z-index: 10;
+  display: block;
+  height: 50px;
+  padding: $margin-tiny;
+  transform: translateY(-50%);
+
+  > button {
+    > span {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: inline-block;
+      font-size: 12px;
+      background: $color-da2d2d;
+      color: $color-white;
+      line-height: 20px;
+      border-radius: 100%;
+
+      @include size(20px);
+    }
+  }
+
+  > .dropdown {
+    position: absolute;
+    background: $color-white;
+    padding: $margin-medium;
+    max-height: calc(100vh - 80px);
+    border: $border;
+    overflow-y: auto;
+
+    &.cart {
+      right: 0;
+      width: 650px;
+
+      > sf-row {
+        justify-content: space-between;
+
+        > sf-container {
+          flex: 0;
+        }
+      }
+
+      > p {
+        text-align: center;
+      }
+    }
+  }
+}
