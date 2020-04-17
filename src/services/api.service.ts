@@ -57,7 +57,7 @@ export class SfApiService {
         const data = await response.json();
         const isArray = data instanceof Array;
         if (isArray && !params) {
-          return data[0];
+          return data[0] || {};
         }
         return data;
       }

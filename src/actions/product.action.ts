@@ -40,7 +40,7 @@ export class SfProductAction {
 
     Promise.resolve(request)
       .then(product => {
-        this.metaService.data = product ? {
+        this.metaService.data = product.id ? {
           description: product.name,
           title: product.name,
           url: `product/${product.key}`,

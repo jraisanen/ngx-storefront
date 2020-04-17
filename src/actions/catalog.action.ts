@@ -22,7 +22,7 @@ export class SfCatalogAction {
     Promise.resolve(request)
       .then(categories => {
         this.taxonomyStore.category = this.taxonomyService.findCategory(categories, routeParams);
-        this.metaService.data = this.taxonomyStore.category ? {
+        this.metaService.data = this.taxonomyStore.category.id ? {
           title: this.taxonomyStore.category.name,
           description: this.taxonomyStore.category.description,
           url: this.taxonomyStore.category.key,

@@ -40,7 +40,7 @@ export class SfPageAction {
 
     Promise.resolve(request)
       .then(page => {
-        this.metaService.data = page ? {
+        this.metaService.data = page.id ? {
           description: page.title,
           title: page.title,
           url: page.key,
