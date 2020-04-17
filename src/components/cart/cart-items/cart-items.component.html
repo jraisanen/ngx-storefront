@@ -8,7 +8,10 @@
     <sf-row *ngFor="let item of cart.items">
       <sf-container class="image">
         <sf-image
-          [image]="{ src: env.productImageUrl + item.extension_attributes.images[0], alt: item.name }"
+          [image]="{
+            src: configStore.config.baseMediaUrl + 'catalog/product' + item.extension_attributes.images[0],
+            alt: item.name
+          }"
         ></sf-image>
       </sf-container>
       <sf-container class="name">

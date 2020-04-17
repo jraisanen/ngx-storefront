@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, Inject, Input } from '@angular/core';
-import { Environment } from '../../types/environment';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { SfConfigStore } from '../../stores/config.store';
 import { Product } from '../../types/product';
 
 @Component({
@@ -12,6 +12,6 @@ export class SfProductComponent {
   @Input() readonly product: Product;
 
   constructor(
-    @Inject('env') readonly env: Environment,
+    readonly configStore: SfConfigStore,
   ) {}
 }

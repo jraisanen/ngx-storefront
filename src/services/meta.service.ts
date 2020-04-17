@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Data } from '@angular/router';
 import { MetaTag } from '../constants/meta';
+import { SfConfigStore } from '../stores/config.store';
 import { Environment } from '../types/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -9,7 +10,7 @@ export class SfMetaService {
   set data(data: Data) {
     this.description = data.description;
     this.title = `${data.title} | ${this.env.appName}`;
-    this.url = `${this.env.appUrl}/${data.url}`;
+    this.url = `${this.configStore.config.baseUrl}/${data.url}`;
   }
 
   private set description(description: string) {
@@ -31,6 +32,7 @@ export class SfMetaService {
   constructor(
     @Inject('env') private readonly env: Environment,
     private readonly metaService: Meta,
+    private readonly configStore: SfConfigStore,
     private readonly titleService: Title,
   ) {}
 }

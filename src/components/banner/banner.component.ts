@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, Inject, Input } from '@angular/core';
-import { Environment } from '../../types/environment';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { SfConfigStore } from '../../stores/config.store';
 
 @Component({
   selector: 'sf-banner',
@@ -11,6 +11,6 @@ export class SfBannerComponent {
   @Input() image: string | undefined;
 
   constructor(
-    @Inject('env') readonly env: Environment,
+    readonly configStore: SfConfigStore,
   ) {}
 }

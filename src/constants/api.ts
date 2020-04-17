@@ -1,6 +1,7 @@
 export const enum ApiPath {
   Brands = 'sf/brands',
   Categories = 'sf/categories',
+  Configs = 'sf/configs',
   GuestCarts = 'guest-carts',
   Items = 'items',
   Orders = 'orders',

@@ -1,4 +1,5 @@
 import { CartItem, Cart, PostCartItem } from './cart';
+import { Config } from './config';
 import { OrderItem, Order } from './order';
 import { Page } from './page';
 import { Product } from './product';
@@ -10,6 +11,7 @@ export type T =
   | AccessToken
   | Cart
   | CartItem
+  | Config
   | PostCartItem
   | Order
   | OrderItem
