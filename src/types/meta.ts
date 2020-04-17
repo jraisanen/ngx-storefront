@@ -1,4 +1,4 @@
-interface MetaAttributes {
+export interface MetaAttributes {
   title: string;
   description: string;
   url: string;

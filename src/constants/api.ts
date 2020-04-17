@@ -5,7 +5,7 @@ export const enum ApiPath {
   GuestCarts = 'guest-carts',
   Items = 'items',
   Orders = 'orders',
-  Pages = 'pages',
+  Pages = 'sf/pages',
   PaymentInformation = 'payment-information',
   Posts = 'posts',
   Products = 'sf/products',
