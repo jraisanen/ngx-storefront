@@ -25,11 +25,11 @@ export class SfProductAction {
     return request;
   }
 
-  fetchProducts(params: Params = {}): Promise<Product[]> {
+  fetchProducts(params: Params = {}, loadMore?: boolean): Promise<Product[]> {
     const request = this.apiService.getItems(ApiPath.Products, params) as Promise<Product[]>;
 
     Promise.resolve(request)
-      .then(products => this.productStore.products = products)
+      .then(products => this.productStore.products = loadMore ? [...this.productStore.products, ...products] : products)
       .catch(e => console.debug(e));
 
     return request;

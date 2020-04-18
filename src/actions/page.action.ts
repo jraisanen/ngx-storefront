@@ -25,11 +25,11 @@ export class SfPageAction {
     return request;
   }
 
-  fetchPages(params: Params = {}): Promise<Page[]> {
+  fetchPages(params: Params = {}, loadMore?: boolean): Promise<Page[]> {
     const request = this.apiService.getItems(ApiPath.Pages, params) as Promise<Page[]>;
 
     Promise.resolve(request)
-      .then(pages => this.pageStore.pages = pages)
+      .then(pages => this.pageStore.pages = loadMore ? [...this.pageStore.pages, ...pages] : pages)
       .catch(e => console.debug(e));
 
     return request;

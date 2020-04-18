@@ -8,9 +8,20 @@ export class SfPaginationService {
   limit = Pagination.Limit;
   page = Pagination.Page;
 
-  loadMore(items: T[]): boolean {
-    return window.innerHeight + window.scrollY >= document.body.offsetHeight - PAGE_BOTTOM_OFFSET
-      && items.length >= Pagination.Limit && !this.isLoading;
+  loadMore(items: T[], request: () => Promise<T[]>): void {
+    const shouldLoadMore = window.innerHeight + window.scrollY >= document.body.offsetHeight - PAGE_BOTTOM_OFFSET
+      && items.length >= this.limit * this.page
+      && !this.isLoading;
+
+    if (!shouldLoadMore) {
+      return;
+    }
+    this.isLoading = true;
+    this.page++;
+
+    Promise.resolve(request())
+      .then(() => this.isLoading = false)
+      .catch(e => console.debug(e));
   }
 
   reset(): void {

@@ -12,21 +12,22 @@ export class SfTaxonomyAction {
     private readonly taxonomyStore: SfTaxonomyStore,
   ) {}
 
-  fetchBrands(params: Params = {}): Promise<Taxonomy[]> {
+  fetchBrands(params: Params = {}, loadMore?: boolean): Promise<Taxonomy[]> {
     const request = this.apiService.getItems(ApiPath.Brands, params) as Promise<Taxonomy[]>;
 
     Promise.resolve(request)
-      .then(brands => this.taxonomyStore.brands = brands)
+      .then(brands => this.taxonomyStore.brands = loadMore ? [...this.taxonomyStore.brands, ...brands] : brands)
       .catch(e => console.debug(e));
 
     return request;
   }
 
-  fetchCategories(params: Params = {}): Promise<Taxonomy[]> {
+  fetchCategories(params: Params = {}, loadMore?: boolean): Promise<Taxonomy[]> {
     const request = this.apiService.getItems(ApiPath.Categories, params) as Promise<Taxonomy[]>;
 
     Promise.resolve(request)
-      .then(categories => this.taxonomyStore.categories = categories)
+      .then(categories => this.taxonomyStore.categories = loadMore
+        ? [...this.taxonomyStore.categories, ...categories] : categories)
       .catch(e => console.debug(e));
 
     return request;
