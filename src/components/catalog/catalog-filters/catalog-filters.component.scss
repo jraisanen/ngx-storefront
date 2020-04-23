@@ -1,0 +1,41 @@
+@import '../styles/catalog';
+
+:host {
+  @include catalogFilters;
+
+  > span {
+    @include toggle;
+  }
+
+  > ul {
+    display: none;
+    margin-top: $margin-small;
+
+    &.active {
+      display: block;
+    }
+
+    > li {
+      display: block;
+      line-height: 2;
+      cursor: pointer;
+
+      &:hover,
+      &.active {
+        > a,
+        > span {
+          color: $color-da2d2d;
+        }
+      }
+
+      &.hidden {
+        display: none;
+      }
+
+      > a,
+      > span {
+        font-weight: 400;
+      }
+    }
+  }
+}

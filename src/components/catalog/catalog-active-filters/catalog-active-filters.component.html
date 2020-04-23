@@ -1,0 +1,11 @@
+<span>Filters</span>
+<ul>
+  <li
+    *ngFor="let filter of filters"
+    [class.active]="filterService.isFilterActive(filter)"
+    (click)="filterService.onFilter(filter)"
+  >
+    {{filter.name}} ({{filter.products}})
+  </li>
+</ul>
+<button (click)="filterService.onClearFilters()">Clear all filters</button>

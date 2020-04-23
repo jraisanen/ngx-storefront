@@ -1,5 +1,4 @@
 @import '../../../styles/constants';
-@import '../../../styles/mixins';
 
 :host {
   position: sticky;
@@ -10,75 +9,4 @@
   margin-top: (-$margin-small);
   max-height: calc(100vh - 60px);
   overflow-y: auto;
-
-  > div {
-    margin: $margin-small $margin-medium 0 0;
-    padding: 0 0 $margin-small 0;
-    border-bottom: $border;
-
-    &:last-child {
-      border-bottom: 0;
-    }
-
-    &.placeholder {
-      > div {
-        background: $color-f5f5f5;
-        height: 30px;
-        margin-bottom: 15px;
-      }
-    }
-
-    > button {
-      @include toggle;
-
-      width: 100%;
-      text-align: left;
-
-      &.inactive {
-        pointer-events: none;
-      }
-
-      &.clear {
-        display: block;
-        margin-top: $margin-small;
-      }
-
-      > span {
-        font-weight: 600;
-        text-transform: uppercase;
-      }
-    }
-
-    > ul {
-      display: none;
-      margin-top: $margin-small;
-
-      &.active {
-        display: block;
-      }
-
-      > li {
-        display: block;
-        line-height: 2;
-        cursor: pointer;
-
-        &:hover,
-        &.active {
-          > a,
-          > span {
-            color: $color-da2d2d;
-          }
-        }
-
-        &.hidden {
-          display: none;
-        }
-
-        > a,
-        > span {
-          font-weight: 400;
-        }
-      }
-    }
-  }
 }

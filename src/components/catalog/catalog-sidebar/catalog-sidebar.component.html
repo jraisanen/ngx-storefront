@@ -1,45 +1,26 @@
-<div *ngIf="!subCategories.length" class="placeholder">
-  <div></div>
-  <div></div>
-  <div></div>
-</div>
-<div *ngIf="filterService.selectedFilters.length" class="active-filters">
-  <button class="inactive">
-    <span>Filters</span>
-  </button>
-  <ul [class.active]="isCategoriesFilterToggleActive">
-    <li *ngFor="let selectedFilter of filterService.selectedFilters"
-      [class.active]="filterService.isFilterActive(selectedFilter)"
-      (click)="filterService.onFilter(selectedFilter)">
-      {{selectedFilter.name}} ({{selectedFilter.products}})
-    </li>
-  </ul>
-  <button class="clear" (click)="filterService.onClearFilters()">Clear all filters</button>
-</div>
-<div *ngIf="subCategories.length" class="categories">
-  <button [class.active]="isCategoriesFilterToggleActive"
-    class="icon icon-chevron icon-after icon-small"
-    (click)="isCategoriesFilterToggleActive = !isCategoriesFilterToggleActive">
-    <span>Category</span>
-  </button>
-  <ul [class.active]="isCategoriesFilterToggleActive">
-    <li *ngFor="let subCategory of subCategories" [class.hidden]="!subCategory.products">
-      <a [routerLink]="subCategory.key">{{subCategory.name}} ({{subCategory.products}})</a>
-    </li>
-  </ul>
-</div>
-<div *ngIf="taxonomyStore.brands$ | async as brands" class="brands">
-  <button [class.active]="isBrandsFilterToggleActive"
-    class="icon icon-chevron icon-after icon-small"
-    (click)="isBrandsFilterToggleActive = !isBrandsFilterToggleActive">
-    <span>Brands</span>
-  </button>
-  <ul [class.active]="isBrandsFilterToggleActive">
-    <li *ngFor="let brand of brands"
-      [class.active]="filterService.isFilterActive(brand)"
-      [class.hidden]="!brand.products"
-      (click)="filterService.onFilter(brand)">
-      <span class="link">{{brand.name}} ({{brand.products}})</span>
-    </li>
-  </ul>
-</div>
+<ng-template #component let-brands="brands">
+  <sf-catalog-active-filters
+    *ngIf="filterService.selectedFilters.length"
+    [filters]="filterService.selectedFilters"
+  ></sf-catalog-active-filters>
+
+  <sf-catalog-filters
+    *ngIf="categories.length"
+    [filters]="categories"
+    [isExternal]="true"
+    label="Category"
+  ></sf-catalog-filters>
+
+  <sf-catalog-filters
+    *ngIf="brands.length"
+    [activeFilters]="filterService.selectedFilters"
+    [filters]="brands"
+    label="Brand"
+  ></sf-catalog-filters>
+</ng-template>
+
+<ng-container
+  *ngTemplateOutlet="component; context: {
+    brands: taxonomyStore.brands$ | async
+  }"
+></ng-container>

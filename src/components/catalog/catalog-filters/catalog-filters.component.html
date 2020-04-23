@@ -1,0 +1,19 @@
+<span
+  [class.active]="isFilterToggleActive"
+  class="icon icon-chevron icon-after icon-small"
+  (click)="isFilterToggleActive = !isFilterToggleActive"
+>
+  {{label}}
+</span>
+
+<ul [class.active]="isFilterToggleActive">
+  <li
+    *ngFor="let filter of filters"
+    [class.active]="!isExternal ? filterService.isFilterActive(filter) : false"
+    [class.hidden]="!filter.products"
+    (click)="!isExternal ? filterService.onFilter(filter) : undefined"
+  >
+    <a *ngIf="isExternal" [routerLink]="filter.key">{{filter.name}} ({{filter.products}})</a>
+    <span *ngIf="!isExternal" class="link">{{filter.name}} ({{filter.products}})</span>
+  </li>
+</ul>

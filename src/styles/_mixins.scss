@@ -46,6 +46,7 @@
 @mixin toggle {
   position: relative;
   padding-right: $margin-medium;
+  cursor: pointer;
 
   &::after {
     position: absolute;

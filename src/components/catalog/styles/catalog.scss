@@ -1,0 +1,21 @@
+@import '../../../styles/constants';
+@import '../../../styles/mixins';
+
+@mixin catalogFilters {
+  display: block;
+  margin: $margin-small $margin-medium 0 0;
+  padding: 0 0 $margin-small 0;
+  border-bottom: $border;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  > span {
+    display: block;
+    width: 100%;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+}

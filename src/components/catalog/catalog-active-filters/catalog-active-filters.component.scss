@@ -1,0 +1,20 @@
+@import '../styles/catalog';
+
+:host {
+  @include catalogFilters;
+
+  > ul {
+    margin-top: $margin-small;
+
+    > li {
+      display: block;
+      line-height: 2;
+      cursor: pointer;
+    }
+  }
+
+  > button {
+    display: block;
+    margin-top: $margin-small;
+  }
+}

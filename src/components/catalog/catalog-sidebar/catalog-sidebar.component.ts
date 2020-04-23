@@ -10,10 +10,7 @@ import { Taxonomy } from '../../../types/taxonomy';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SfCatalogSidebarComponent {
-  @Input() readonly subCategories: Taxonomy[] = [];
-
-  isBrandsFilterToggleActive = true;
-  isCategoriesFilterToggleActive = true;
+  @Input() readonly categories: Taxonomy[] = [];
 
   constructor(
     readonly filterService: SfFilterService,
