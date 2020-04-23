@@ -15,11 +15,13 @@ export class SfCartService {
   shippingMethods: any;
 
   get totalPrice(): number {
-    return this.cartStore.cart.items ? this.cartStore.cart.items.reduce((price, item) => price + (item.price * item.qty), 0) : 0;
+    const { items } = this.cartStore.cart;
+    return items ? items.reduce((price, item) => price + (item.price * item.qty), 0) : 0;
   }
 
   get totalQuantity(): number {
-    return this.cartStore.cart.items ? this.cartStore.cart.items.reduce((qty, item) => qty + item.qty, 0) : 0;
+    const { items } = this.cartStore.cart;
+    return items ? items.reduce((qty, item) => qty + item.qty, 0) : 0;
   }
 
   constructor(
