@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SfCartAction } from '../actions/cart.action';
 import { ApiPath } from '../constants/api';
-import { CheckoutStep, Direction } from '../constants/cart';
+import { Direction } from '../constants/cart';
 import { SfCartStore } from '../stores/cart.store';
 import { CartItem } from '../types/cart';
 import { Product } from '../types/product';
@@ -10,8 +10,9 @@ import { SfStorageService } from './storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class SfCartService {
-  checkoutStep: CheckoutStep = CheckoutStep.Address;
   paymentMethods: any;
+  selectedEmail: string;
+  selectedPaymentMethod: any;
   shippingMethods: any;
 
   get totalPrice(): number {
@@ -58,32 +59,42 @@ export class SfCartService {
       .catch(e => console.debug(e));
   }
 
-  setOrder(data: any): void {
+  setOrder(data: any): Promise<any> {
     const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.PaymentInformation}`;
-    Promise.resolve(this.apiService.postItem(path, data))
+    const request = this.apiService.postItem(path, data);
+
+    Promise.resolve(request)
       .then(response => Number(response) ? this.initCart() : undefined)
       .catch(e => console.debug(e));
+
+    return request;
   }
 
-  setPaymentMethod(data: any): void {
+  setPaymentMethod(data: any): Promise<any> {
     const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.SelectedPaymentMethod}`;
-    Promise.resolve(this.apiService.putItem(path, data))
-      .then(response => Number(response) ? this.checkoutStep = CheckoutStep.Review : undefined)
-      .catch(e => console.debug(e));
+    return this.apiService.putItem(path, data);
   }
 
-  setShippingInformation(data: any): void {
+  setShippingInformation(data: any): Promise<any> {
     const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.ShippingInformation}`;
-    Promise.resolve(this.apiService.postItem(path, data))
+    const request = this.apiService.postItem(path, data);
+
+    Promise.resolve(request)
       .then((response: any) => this.paymentMethods = response.payment_methods)
       .catch(e => console.debug(e));
+
+    return request;
   }
 
-  setShippingMethods(): void {
+  setShippingMethods(): Promise<any> {
     const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.ShippingMethods}`;
-    Promise.resolve(this.apiService.getItem(path))
+    const request = this.apiService.getItem(path);
+
+    Promise.resolve(request)
       .then(shippingMethods => this.shippingMethods = shippingMethods)
       .catch(e => console.debug(e));
+
+    return request;
   }
 
   updateItem(cartItem: CartItem, direction: Direction): void {
