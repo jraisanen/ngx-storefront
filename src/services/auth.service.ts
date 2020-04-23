@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { SfUserAction } from '../actions/user.action';
+import { SfCustomerAction } from '../actions/customer.action';
 import { ApiPath } from '../constants/api';
-import { AccessToken } from '../types/token';
-import { User } from '../types/user';
+import { SfCustomerStore } from '../stores/customer.store';
+import { Customer } from '../types/customer';
 import { SfApiService } from './api.service';
 import { SfStorageService } from './storage.service';
 
@@ -11,32 +11,48 @@ import { SfStorageService } from './storage.service';
 export class SfAuthService {
   constructor(
     private readonly apiService: SfApiService,
+    private readonly customerAction: SfCustomerAction,
+    private readonly customerStore: SfCustomerStore,
     private readonly router: Router,
     private readonly storageService: SfStorageService,
-    private readonly userAction: SfUserAction,
   ) {}
 
-  async login(user: Partial<User>): Promise<AccessToken> {
-    const params = { username: user.email, password: user.password };
-    const data = (await this.apiService.postItem(ApiPath.UsersLogin, params)) as AccessToken;
-    if (data.access_token) {
-      this.storageService.accessToken = data.access_token;
-      Promise.resolve(this.userAction.fetchUser())
-        .catch(e => console.debug(e));
-    }
-    return data;
+  login(customer: Partial<Customer>): Promise<string> {
+    const params = { username: customer.email, password: customer.password };
+    const request = this.apiService.postItem(ApiPath.CustomersLogin, params) as Promise<string>;
+
+    Promise.resolve(request)
+      .then(accessToken => {
+        if (accessToken && typeof accessToken === 'string') {
+          this.storageService.accessToken = accessToken;
+          Promise.resolve(this.customerAction.fetchCustomer())
+            .catch(e => console.debug(e));
+        }
+      })
+      .catch(e => console.debug(e));
+
+    return request;
   }
 
-  async logout(): Promise<boolean> {
-    const hasLoggedOut = (await this.apiService.postItem(ApiPath.UsersLogout, {})) as boolean;
-    if (hasLoggedOut) {
-      this.storageService.accessToken = '';
-      await this.router.navigate(['/']);
-    }
-    return hasLoggedOut;
+  logout(): void {
+    const headers = this.storageService.accessToken
+      ? { Authorization: `Bearer ${this.storageService.accessToken}` }
+      : {};
+    Promise.resolve(this.apiService.postItem(ApiPath.CustomersLogout, {}, headers))
+      .then(hasLoggedOut => {
+        if (hasLoggedOut) {
+          this.router.navigate(['/'], { replaceUrl: true })
+            .then(() => {
+              this.storageService.accessToken = '';
+              this.customerStore.customer = {} as Customer;
+            })
+            .catch(e => console.debug(e));
+        }
+      })
+      .catch(e => console.debug(e));
   }
 
-  async register(user: Partial<User>): Promise<User> {
-    return (await this.apiService.postItem(ApiPath.UsersRegister, user)) as User;
+  register(customer: Partial<Customer>): Promise<Customer> {
+    return this.apiService.postItem(ApiPath.CustomersRegister, customer) as Promise<Customer>;
   }
 }

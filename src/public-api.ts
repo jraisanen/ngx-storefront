@@ -7,7 +7,7 @@ export * from './actions/config.action';
 export * from './actions/page.action';
 export * from './actions/product.action';
 export * from './actions/taxonomy.action';
-export * from './actions/user.action';
+export * from './actions/customer.action';
 
 export * from './components/banner/banner.module';
 export * from './components/block/block.module';
@@ -34,6 +34,8 @@ export * from './constants/product';
 export * from './constants/sort-order';
 export * from './constants/storage';
 
+export * from './guards/customer.guard';
+
 export * from './services/api.service';
 export * from './services/auth.service';
 export * from './services/cart.service';
@@ -50,7 +52,7 @@ export * from './stores/config.store';
 export * from './stores/page.store';
 export * from './stores/product.store';
 export * from './stores/taxonomy.store';
-export * from './stores/user.store';
+export * from './stores/customer.store';
 
 export * from './types/address';
 export * from './types/block';
@@ -68,6 +70,6 @@ export * from './types/sort-order';
 export * from './types/storefront';
 export * from './types/taxonomy';
 export * from './types/token';
-export * from './types/user';
+export * from './types/customer';
 
 export * from './storefront.module';

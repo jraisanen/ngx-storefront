@@ -27,10 +27,7 @@ export class SfCartService {
     private readonly cartAction: SfCartAction,
     private readonly cartStore: SfCartStore,
     private readonly storageService: SfStorageService,
-  ) {
-    Promise.resolve(this.cartAction.fetchCart())
-      .catch(e => console.debug(e));
-  }
+  ) {}
 
   addItem(product: Product): void {
     const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.Items}`;
@@ -41,11 +38,13 @@ export class SfCartService {
   }
 
   initCart(): void {
-    Promise.resolve(this.apiService.postItem(ApiPath.GuestCarts, {}) as Promise<string>)
+    Promise.resolve(this.apiService.postItem(ApiPath.GuestCarts, {}))
       .then(cart => {
-        this.storageService.cart = cart;
-        Promise.resolve(this.cartAction.fetchCart())
-          .catch(e => console.debug(e));
+        if (cart && typeof cart === 'string') {
+          this.storageService.cart = cart;
+          Promise.resolve(this.cartAction.fetchCart())
+            .catch(e => console.debug(e));
+        }
       })
       .catch(e => console.debug(e));
   }

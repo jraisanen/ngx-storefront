@@ -4,7 +4,7 @@ import { Order } from './order';
 import { Storefront } from './storefront';
 import { Token } from './token';
 
-export interface User extends Storefront {
+export interface Customer extends Storefront {
   firstName: string;
   lastName: string;
   phone: string;
@@ -16,4 +16,13 @@ export interface User extends Storefront {
   tokens?: Token[];
   billingAddress?: Address;
   shippingAddress?: Address;
+}
+
+export interface PostCustomer {
+  customer: {
+    firstname: string;
+    lastname: string;
+    email: string;
+  };
+  password: string;
 }

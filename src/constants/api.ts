@@ -12,10 +12,10 @@ export const enum ApiPath {
   SelectedPaymentMethod = 'selected-payment-method',
   ShippingInformation = 'shipping-information',
   ShippingMethods = 'shipping-methods',
-  UsersLogin = 'users/login',
-  UsersLogout = 'users/logout',
-  UsersMe = 'users/me',
-  UsersRegister = 'users/register',
+  CustomersLogin = 'integration/customer/token',
+  CustomersLogout = 'sf/auth/logout',
+  CustomersMe = 'customers/me',
+  CustomersRegister = 'customers',
 }
 
 export enum RequestMethod {
@@ -25,3 +25,8 @@ export enum RequestMethod {
   Put = 'PUT',
   Delete = 'DELETE',
 }
+
+export const HEADERS = {
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+};

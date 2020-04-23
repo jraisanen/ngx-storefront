@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { DEFAULT_MODAL_VIEW, ModalView } from '../constants/modal';
-import { User } from '../types/user';
+import { Customer } from '../types/customer';
 
 @Injectable({ providedIn: 'root' })
 export class SfModalService {
   isActive = false;
-  user: Partial<User> = {};
+  customer: Partial<Customer> = {};
   view: ModalView = DEFAULT_MODAL_VIEW;
 
   onClose(): void {
     this.isActive = false;
-    this.user = {};
+    this.customer = {};
     this.view = DEFAULT_MODAL_VIEW;
   }
 }

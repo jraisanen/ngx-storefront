@@ -1,16 +1,16 @@
-<form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" (click)="$event.stopPropagation()">
+<form #loginForm="ngForm" (ngSubmit)="onLogin()" (click)="$event.stopPropagation()">
   <h2>Login</h2>
-  <sf-form-text [value]="modalService.user.email"
+  <sf-form-text [value]="modalService.customer.email"
     type="email"
     key="email"
     placeholder="Email Address"
-    (onValueChange)="modalService.user.email = $event"></sf-form-text>
-  <sf-form-text [value]="modalService.user.password"
+    (onValueChange)="modalService.customer.email = $event"></sf-form-text>
+  <sf-form-text [value]="modalService.customer.password"
     type="password"
     key="password"
     placeholder="Password"
-    (onValueChange)="modalService.user.password = $event"></sf-form-text>
+    (onValueChange)="modalService.customer.password = $event"></sf-form-text>
   <button class="primary action">Login</button>
-  <a (click)="onViewChange.emit(ModalView.Login)">Login</a>
+  <a (click)="onViewChange.emit(ModalView.Register); $event.stopPropagation()">Register</a>
   <button class="close icon icon-close icon-before icon-small" (click)="modalService.onClose()"></button>
 </form>

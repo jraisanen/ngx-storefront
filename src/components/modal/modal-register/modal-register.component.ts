@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { ModalView } from '../../../constants/modal';
-import { User } from '../../../types/user';
 import { SfAuthService } from '../../../services/auth.service';
 import { SfModalService } from '../../../services/modal.service';
 
@@ -21,22 +19,21 @@ export class SfModalRegisterComponent {
     private readonly authService: SfAuthService,
   ) {}
 
-  async onRegister(registerForm: NgForm): Promise<void> {
-    console.debug(registerForm);
-    if (!this.modalService.user.email || !this.modalService.user.password) {
-      console.debug('Please enter email and password.');
+  onRegister(): void {
+    const { email, firstName, lastName, password } = this.modalService.customer;
+    if (!email || !firstName || !lastName || !password) {
       return;
     }
-    try {
-      const user: User = await this.authService.register(this.modalService.user);
-      this.modalService.user = {};
-      if (!user.email) {
-        console.debug(user);
-        return;
-      }
-      this.modalService.view = ModalView.Login;
-    } catch (e) {
-      console.debug(e);
+    const newCustomer = {
+      customer: { email, firstname: firstName, lastname: lastName },
+      password: this.modalService.customer.password,
     }
+
+    Promise.resolve(this.authService.register(newCustomer))
+      .then(() => {
+        this.modalService.customer = {};
+        this.modalService.view = ModalView.Login;
+      })
+      .catch(e => console.debug(e));
   }
 }

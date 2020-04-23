@@ -1,9 +1,9 @@
 import { Storefront } from './storefront';
-import { User } from './user';
+import { Customer } from './customer';
 
 export interface Token extends Storefront {
   value: string;
-  user: User;
+  customer: Customer;
 }
 
 export interface AccessToken {

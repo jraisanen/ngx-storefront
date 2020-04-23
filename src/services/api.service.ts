@@ -1,53 +1,47 @@
 import { Inject, Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { RequestMethod } from '../constants/api';
+import { HEADERS, RequestMethod } from '../constants/api';
 import { Environment } from '../types/environment';
 import { T } from '../types/storefront';
-import { SfStorageService } from './storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class SfApiService {
-  private get _headers(): Headers {
-    return new Headers({
-      Accept: 'application/json',
-      Authorization: `Bearer ${this.storageService.accessToken}`,
-      'Content-Type': 'application/json',
-    });
-  }
-
   constructor(
     @Inject('env') private readonly env: Environment,
-    private readonly storageService: SfStorageService,
   ) {}
 
-  async deleteItem(path: string): Promise<T> {
-    const init = { headers: this._headers, method: RequestMethod.Delete };
-    return (await this._request(path, init)) as T;
+  deleteItem(path: string, headers?: object): Promise<T> {
+    const init = { headers: this._headers(headers), method: RequestMethod.Delete };
+    return this._request(path, init) as Promise<T>;
   }
 
-  async getItem(path: string): Promise<T> {
-    const init = { headers: this._headers, method: RequestMethod.Get };
-    return (await this._request(path, init)) as T;
+  getItem(path: string, headers?: object): Promise<T> {
+    const init = { headers: this._headers(headers), method: RequestMethod.Get };
+    return this._request(path, init) as Promise<T>;
   }
 
-  async getItems(path: string, params: Params = {}): Promise<T[]> {
-    const init = { headers: this._headers, method: RequestMethod.Get };
-    return (await this._request(path, init, params)) as T[];
+  getItems(path: string, params: Params = {}, headers?: object): Promise<T[]> {
+    const init = { headers: this._headers(headers), method: RequestMethod.Get };
+    return this._request(path, init, params) as Promise<T[]>;
   }
 
-  async patchItem(path: string, item: Partial<T>): Promise<T> {
-    const init = { body: JSON.stringify(item), headers: this._headers, method: RequestMethod.Patch };
-    return (await this._request(path, init)) as T;
+  patchItem(path: string, item: Partial<T>, headers?: object): Promise<T> {
+    const init = { body: JSON.stringify(item), headers: this._headers(headers), method: RequestMethod.Patch };
+    return this._request(path, init) as Promise<T>;
   }
 
-  async postItem(path: string, item: Partial<T>): Promise<T> {
-    const init = { body: JSON.stringify(item), headers: this._headers, method: RequestMethod.Post };
-    return (await this._request(path, init)) as T;
+  postItem(path: string, item: Partial<T>, headers?: object): Promise<T> {
+    const init = { body: JSON.stringify(item), headers: this._headers(headers), method: RequestMethod.Post };
+    return this._request(path, init) as Promise<T>;
   }
 
-  async putItem(path: string, item: Partial<T>): Promise<T> {
-    const init = { body: JSON.stringify(item), headers: this._headers, method: RequestMethod.Put };
-    return (await this._request(path, init)) as T;
+  putItem(path: string, item: Partial<T>, headers?: object): Promise<T> {
+    const init = { body: JSON.stringify(item), headers: this._headers(headers), method: RequestMethod.Put };
+    return this._request(path, init) as Promise<T>;
+  }
+
+  private _headers(headers?: object): Headers {
+    return new Headers(headers ? { ...HEADERS, ...headers } : HEADERS);
   }
 
   private async _request(path: string, init?: RequestInit, params?: Params): Promise<T | T[]> {
@@ -55,8 +49,7 @@ export class SfApiService {
       const response = await fetch(this._url(this.env.apiUrl, path, params), init);
       if (response.ok) {
         const data = await response.json();
-        const isArray = data instanceof Array;
-        if (isArray && !params) {
+        if (data instanceof Array && !params) {
           return data[0] || {};
         }
         return data;

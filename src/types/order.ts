@@ -3,7 +3,7 @@ import { OrderStatus, PaymentMethod, ShippingMethod } from '../constants/order';
 import { Address } from './address';
 import { Coupon } from './coupon';
 import { Storefront } from './storefront';
-import { User } from './user';
+import { Customer } from './customer';
 
 export interface OrderItem extends Storefront {
   quantity: number;
@@ -21,7 +21,7 @@ export interface Order extends Storefront {
   total: number;
   totalTax: number;
   pricesIncludeTax: boolean;
-  customer: User;
+  customer: Customer;
   billingAddress: Address;
   shippingAddress: Address;
   paymentMethod: PaymentMethod;

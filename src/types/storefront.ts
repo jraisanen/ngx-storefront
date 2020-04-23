@@ -5,7 +5,7 @@ import { Page } from './page';
 import { Product } from './product';
 import { Taxonomy } from './taxonomy';
 import { AccessToken } from './token';
-import { User } from './user';
+import { Customer } from './customer';
 
 export type T =
   | AccessToken
@@ -18,7 +18,7 @@ export type T =
   | Page
   | Product
   | Taxonomy
-  | User
+  | Customer
   | boolean
   | string;
 

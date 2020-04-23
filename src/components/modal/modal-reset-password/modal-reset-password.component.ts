@@ -20,6 +20,6 @@ export class SfModalResetPasswordComponent {
 
   onResetPassword(resetPasswordForm: NgForm): void {
     console.debug(resetPasswordForm);
-    console.debug('reset password', this.modalService.user);
+    console.debug('reset password', this.modalService.customer);
   }
 }

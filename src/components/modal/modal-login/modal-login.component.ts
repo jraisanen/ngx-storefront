@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { ModalView } from '../../../constants/modal';
 import { SfAuthService } from '../../../services/auth.service';
 import { SfModalService } from '../../../services/modal.service';
@@ -20,19 +19,17 @@ export class SfModalLoginComponent {
     private readonly authService: SfAuthService,
   ) {}
 
-  async onLogin(loginForm: NgForm): Promise<void> {
-    console.debug(loginForm);
-    if (!this.modalService.user.email || !this.modalService.user.password) {
-      console.debug('Please enter email and password.');
+  onLogin(): void {
+    if (!this.modalService.customer.email || !this.modalService.customer.password) {
       return;
     }
-    try {
-      await this.authService.login(this.modalService.user);
-      this.modalService.user = {};
-      this.modalService.view = ModalView.Login;
-      this.modalService.onClose();
-    } catch (e) {
-      console.debug(e);
-    }
+
+    Promise.resolve(this.authService.login(this.modalService.customer))
+      .then(() => {
+        this.modalService.customer = {};
+        this.modalService.view = ModalView.Login;
+        this.modalService.onClose();
+      })
+      .catch(e => console.debug(e));
   }
 }

@@ -16,7 +16,7 @@ export class SfModalComponent {
   ) {}
 
   onViewChange(view: ModalView): void {
-    this.modalService.user = {};
+    this.modalService.customer = {};
     this.modalService.view = view;
   }
 }
