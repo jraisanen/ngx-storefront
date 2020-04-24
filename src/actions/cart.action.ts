@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ApiPath } from '../constants/api';
 import { META } from '../constants/meta';
+import { Cart } from '../models/cart.model';
 import { SfApiService } from '../services/api.service';
 import { SfMetaService } from '../services/meta.service';
 import { SfStorageService } from '../services/storage.service';
 import { SfCartStore } from '../stores/cart.store';
-import { Cart } from '../types/cart';
 
 @Injectable({ providedIn: 'root' })
 export class SfCartAction {

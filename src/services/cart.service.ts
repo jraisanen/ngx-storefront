@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { SfCartAction } from '../actions/cart.action';
 import { ApiPath } from '../constants/api';
 import { Direction } from '../constants/cart';
+import { CartItem } from '../models/cart-item.model';
+import { Product } from '../models/product.model';
 import { SfCartStore } from '../stores/cart.store';
-import { CartItem } from '../types/cart';
-import { Product } from '../types/product';
 import { SfApiService } from './api.service';
 import { SfStorageService } from './storage.service';
 

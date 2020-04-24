@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { ApiPath } from '../constants/api';
+import { Order } from '../models/order.model';
 import { SfApiService } from '../services/api.service';
 import { SfOrderStore } from '../stores/order.store';
-import { Order } from '../types/order';
 
 @Injectable({ providedIn: 'root' })
 export class SfOrderAction {

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Product } from '../../models/product.model';
 import { SfConfigStore } from '../../stores/config.store';
-import { Product } from '../../types/product';
 
 @Component({
   selector: 'sf-product',

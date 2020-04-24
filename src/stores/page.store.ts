@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Page } from '../types/page';
+import { Page } from '../models/page.model';
 
 @Injectable({ providedIn: 'root' })
 export class SfPageStore {
-  private readonly _page$: BehaviorSubject<Page> = new BehaviorSubject<Page>({} as Page);
+  private readonly _page$: BehaviorSubject<Page> = new BehaviorSubject<Page>(new Page());
   private readonly _pages$: BehaviorSubject<Page[]> = new BehaviorSubject<Page[]>([]);
 
   readonly page$: Observable<Page> = this._page$.asObservable();
@@ -15,7 +15,7 @@ export class SfPageStore {
   }
 
   set page(page: Page) {
-    this._page$.next(page);
+    this._page$.next(new Page(page));
   }
 
   get pages(): Page[] {
@@ -23,6 +23,6 @@ export class SfPageStore {
   }
 
   set pages(pages: Page[]) {
-    this._pages$.next(pages);
+    this._pages$.next(pages.map(page => new Page(page)));
   }
 }

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Product } from '../types/product';
+import { Product } from '../models/product.model';
 
 @Injectable({ providedIn: 'root' })
 export class SfProductStore {
-  private readonly _product$: BehaviorSubject<Product> = new BehaviorSubject<Product>({} as Product);
+  private readonly _product$: BehaviorSubject<Product> = new BehaviorSubject<Product>(new Product());
   private readonly _products$: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
 
   readonly product$: Observable<Product> = this._product$.asObservable();
@@ -15,7 +15,7 @@ export class SfProductStore {
   }
 
   set product(product: Product) {
-    this._product$.next(product);
+    this._product$.next(new Product(product));
   }
 
   get products(): Product[] {
@@ -23,6 +23,6 @@ export class SfProductStore {
   }
 
   set products(products: Product[]) {
-    this._products$.next(products);
+    this._products$.next(products.map(product => new Product(product)));
   }
 }

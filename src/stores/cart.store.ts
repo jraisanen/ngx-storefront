@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Cart } from '../types/cart';
+import { Cart } from '../models/cart.model';
 
 @Injectable({ providedIn: 'root' })
 export class SfCartStore {
-  private readonly _cart$: BehaviorSubject<Cart> = new BehaviorSubject<Cart>({} as Cart);
+  private readonly _cart$: BehaviorSubject<Cart> = new BehaviorSubject<Cart>(new Cart());
 
   readonly cart$: Observable<Cart> = this._cart$.asObservable();
 
@@ -13,6 +13,6 @@ export class SfCartStore {
   }
 
   set cart(cart: Cart) {
-    this._cart$.next(cart);
+    this._cart$.next(new Cart(cart));
   }
 }

@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { ApiPath } from '../constants/api';
 import { META } from '../constants/meta';
+import { Page } from '../models/page.model';
 import { SfApiService } from '../services/api.service';
 import { SfMetaService } from '../services/meta.service';
 import { SfPageStore } from '../stores/page.store';
-import { Page } from '../types/page';
 
 @Injectable({ providedIn: 'root' })
 export class SfPageAction {

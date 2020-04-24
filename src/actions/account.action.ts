@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { META } from '../constants/meta';
+import { Customer } from '../models/customer.model';
 import { SfMetaService } from '../services/meta.service';
-import { Customer } from '../types/customer';
 import { SfCustomerAction } from './customer.action';
 
 @Injectable({ providedIn: 'root' })

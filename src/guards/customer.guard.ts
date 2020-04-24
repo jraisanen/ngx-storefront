@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { SfCustomerAction } from '../actions/customer.action';
-import { Customer } from '../types/customer';
+import { Customer } from '../models/customer.model';
 
 @Injectable({ providedIn: 'root' })
 export class SfCustomerGuard implements CanActivate {

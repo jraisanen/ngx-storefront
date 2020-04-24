@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { SfTaxonomyStore } from '../stores/taxonomy.store';
-import { Taxonomy } from '../types/taxonomy';
 import { ApiPath } from '../constants/api';
+import { Taxonomy } from '../models/taxonomy.model';
 import { SfApiService } from '../services/api.service';
+import { SfTaxonomyStore } from '../stores/taxonomy.store';
 
 @Injectable({ providedIn: 'root' })
 export class SfTaxonomyAction {

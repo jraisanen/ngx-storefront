@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Image } from '../../../types/image';
+import { Image } from '../../../models/image.model';
 
 @Component({
   selector: 'sf-image',

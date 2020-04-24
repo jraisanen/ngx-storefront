@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DEFAULT_MODAL_VIEW, ModalView } from '../constants/modal';
-import { Customer } from '../types/customer';
+import { Customer } from '../models/customer.model';
 
 @Injectable({ providedIn: 'root' })
 export class SfModalService {

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Taxonomy } from '../../../models/taxonomy.model';
 import { SfFilterService } from '../../../services/filter.service';
-import { Taxonomy } from '../../../types/taxonomy';
 
 @Component({
   selector: 'sf-catalog-active-filters',

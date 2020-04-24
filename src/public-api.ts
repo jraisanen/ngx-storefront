@@ -25,17 +25,29 @@ export * from './components/sort-order/sort-order.module';
 
 export * from './constants/api';
 export * from './constants/cart';
-export * from './constants/currency';
 export * from './constants/filter';
 export * from './constants/meta';
 export * from './constants/modal';
-export * from './constants/order';
 export * from './constants/pagination';
-export * from './constants/product';
 export * from './constants/sort-order';
 export * from './constants/storage';
 
 export * from './guards/customer.guard';
+
+export * from './models/address.model';
+export * from './models/cart.model';
+export * from './models/cart-item.model';
+export * from './models/config.model';
+export * from './models/coupon.model';
+export * from './models/customer.model';
+export * from './models/extension-attributes.model';
+export * from './models/image.model';
+export * from './models/meta-attributes.model';
+export * from './models/order.model';
+export * from './models/order-item.model';
+export * from './models/page.model';
+export * from './models/product.model';
+export * from './models/taxonomy.model';
 
 export * from './services/api.service';
 export * from './services/auth.service';
@@ -56,22 +68,13 @@ export * from './stores/page.store';
 export * from './stores/product.store';
 export * from './stores/taxonomy.store';
 
-export * from './types/address';
 export * from './types/block';
 export * from './types/cart';
-export * from './types/config';
-export * from './types/coupon';
 export * from './types/customer';
 export * from './types/environment';
-export * from './types/image';
 export * from './types/menu';
 export * from './types/meta';
-export * from './types/order';
-export * from './types/page';
-export * from './types/product';
 export * from './types/sort-order';
 export * from './types/storefront';
-export * from './types/taxonomy';
-export * from './types/token';
 
 export * from './storefront.module';

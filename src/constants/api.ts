@@ -7,7 +7,6 @@ export const enum ApiPath {
   Orders = 'sf/orders',
   Pages = 'sf/pages',
   PaymentInformation = 'payment-information',
-  Posts = 'posts',
   Products = 'sf/products',
   SelectedPaymentMethod = 'selected-payment-method',
   ShippingInformation = 'shipping-information',

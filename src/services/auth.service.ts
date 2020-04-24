@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { SfCustomerAction } from '../actions/customer.action';
 import { ApiPath } from '../constants/api';
+import { Customer } from '../models/customer.model';
 import { SfCustomerStore } from '../stores/customer.store';
-import { Customer } from '../types/customer';
 import { SfApiService } from './api.service';
 import { SfStorageService } from './storage.service';
 

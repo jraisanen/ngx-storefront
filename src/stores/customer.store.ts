@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Customer } from '../types/customer';
+import { Customer } from '../models/customer.model';
 
 @Injectable({ providedIn: 'root' })
 export class SfCustomerStore {
-  private readonly _customer$: BehaviorSubject<Customer> = new BehaviorSubject<Customer>({} as Customer);
+  private readonly _customer$: BehaviorSubject<Customer> = new BehaviorSubject<Customer>(new Customer());
 
   readonly customer$: Observable<Customer> = this._customer$.asObservable();
 
@@ -13,6 +13,6 @@ export class SfCustomerStore {
   }
 
   set customer(customer: Customer) {
-    this._customer$.next(customer);
+    this._customer$.next(new Customer(customer));
   }
 }

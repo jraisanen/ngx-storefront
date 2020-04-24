@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Config } from '../types/config';
+import { Config } from '../models/config.model';
 
 @Injectable({ providedIn: 'root' })
 export class SfConfigStore {
-  private readonly _config$: BehaviorSubject<Config> = new BehaviorSubject<Config>({} as Config);
+  private readonly _config$: BehaviorSubject<Config> = new BehaviorSubject<Config>(new Config());
   private readonly _configs$: BehaviorSubject<Config[]> = new BehaviorSubject<Config[]>([]);
 
   readonly config$: Observable<Config> = this._config$.asObservable();
@@ -15,7 +15,7 @@ export class SfConfigStore {
   }
 
   set config(config: Config) {
-    this._config$.next(config);
+    this._config$.next(new Config(config));
   }
 
   get configs(): Config[] {
@@ -23,6 +23,6 @@ export class SfConfigStore {
   }
 
   set configs(configs: Config[]) {
-    this._configs$.next(configs);
+    this._configs$.next(configs.map(config => new Config(config)));
   }
 }

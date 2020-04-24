@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Page } from '../../types/page';
+import { Page } from '../../models/page.model';
 
 @Component({
   selector: 'sf-page',

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ApiPath } from '../constants/api';
+import { Config } from '../models/config.model';
 import { SfApiService } from '../services/api.service';
 import { SfConfigStore } from '../stores/config.store';
-import { Config } from '../types/config';
 
 @Injectable({ providedIn: 'root' })
 export class SfConfigAction {

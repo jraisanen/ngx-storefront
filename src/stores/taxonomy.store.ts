@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Taxonomy } from '../types/taxonomy';
+import { Taxonomy } from '../models/taxonomy.model';
 
 @Injectable({ providedIn: 'root' })
 export class SfTaxonomyStore {
   private readonly _brands$: BehaviorSubject<Taxonomy[]> = new BehaviorSubject<Taxonomy[]>([]);
-  private readonly _category$: BehaviorSubject<Taxonomy> = new BehaviorSubject<Taxonomy>({} as Taxonomy);
+  private readonly _category$: BehaviorSubject<Taxonomy> = new BehaviorSubject<Taxonomy>(new Taxonomy());
   private readonly _categories$: BehaviorSubject<Taxonomy[]> = new BehaviorSubject<Taxonomy[]>([]);
   private readonly _subCategories$: BehaviorSubject<Taxonomy[]> = new BehaviorSubject<Taxonomy[]>([]);
 
@@ -19,7 +19,7 @@ export class SfTaxonomyStore {
   }
 
   set brands(brands: Taxonomy[]) {
-    this._brands$.next(brands);
+    this._brands$.next(brands.map(brand => new Taxonomy(brand)));
   }
 
   get category(): Taxonomy {
@@ -27,7 +27,7 @@ export class SfTaxonomyStore {
   }
 
   set category(category: Taxonomy) {
-    this._category$.next(category);
+    this._category$.next(new Taxonomy(category));
   }
 
   get categories(): Taxonomy[] {
@@ -35,7 +35,7 @@ export class SfTaxonomyStore {
   }
 
   set categories(categories: Taxonomy[]) {
-    this._categories$.next(categories);
+    this._categories$.next(categories.map(category => new Taxonomy(category)));
   }
 
   get subCategories(): Taxonomy[] {
@@ -43,6 +43,6 @@ export class SfTaxonomyStore {
   }
 
   set subCategories(subCategories: Taxonomy[]) {
-    this._subCategories$.next(subCategories);
+    this._subCategories$.next(subCategories.map(subCategory => new Taxonomy(subCategory)));
   }
 }

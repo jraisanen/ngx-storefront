@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { META } from '../constants/meta';
+import { Taxonomy } from '../models/taxonomy.model';
 import { SfMetaService } from '../services/meta.service';
 import { SfTaxonomyService } from '../services/taxonomy.service';
 import { SfTaxonomyStore } from '../stores/taxonomy.store';
-import { Taxonomy } from '../types/taxonomy';
 import { SfTaxonomyAction } from './taxonomy.action';
 
 @Injectable({ providedIn: 'root' })

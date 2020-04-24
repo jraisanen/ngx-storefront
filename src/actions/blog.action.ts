@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { META } from '../constants/meta';
+import { Page } from '../models/page.model';
 import { SfMetaService } from '../services/meta.service';
-import { Page } from '../types/page';
 import { SfPageAction } from './page.action';
 
 @Injectable({ providedIn: 'root' })

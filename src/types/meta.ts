@@ -1,8 +1,4 @@
-export interface MetaAttributes {
-  title: string;
-  description: string;
-  url: string;
-}
+import { MetaAttributes } from '../models/meta-attributes.model';
 
 export interface Meta {
   account: MetaAttributes;

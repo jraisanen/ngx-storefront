@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ApiPath } from '../constants/api';
+import { Customer } from '../models/customer.model';
 import { SfApiService } from '../services/api.service';
 import { SfCustomerStore } from '../stores/customer.store';
-import { Customer } from '../types/customer';
 
 @Injectable({ providedIn: 'root' })
 export class SfCustomerAction {

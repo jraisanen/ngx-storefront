@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { Taxonomy } from '../types/taxonomy';
+import { Taxonomy } from '../models/taxonomy.model';
 
 @Injectable({ providedIn: 'root' })
 export class SfTaxonomyService {

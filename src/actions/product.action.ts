@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { ApiPath } from '../constants/api';
 import { META } from '../constants/meta';
+import { Product } from '../models/product.model';
 import { SfApiService } from '../services/api.service';
 import { SfMetaService } from '../services/meta.service';
 import { SfProductStore } from '../stores/product.store';
-import { Product } from '../types/product';
 
 @Injectable({ providedIn: 'root' })
 export class SfProductAction {
@@ -29,7 +29,9 @@ export class SfProductAction {
     const request = this.apiService.getItems(ApiPath.Products, params) as Promise<Product[]>;
 
     Promise.resolve(request)
-      .then(products => this.productStore.products = loadMore ? [...this.productStore.products, ...products] : products)
+      .then(products => this.productStore.products = loadMore
+        ? [...this.productStore.products, ...products]
+        : products)
       .catch(e => console.debug(e));
 
     return request;

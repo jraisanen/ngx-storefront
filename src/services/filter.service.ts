@@ -4,9 +4,9 @@ import { SfProductAction } from '../actions/product.action';
 import { FilterType } from '../constants/filter';
 import { Pagination } from '../constants/pagination';
 import { SORT_ORDER_MENU_ITEMS } from '../constants/sort-order';
+import { Taxonomy } from '../models/taxonomy.model';
 import { SfTaxonomyStore } from '../stores/taxonomy.store';
 import { SortOrder } from '../types/sort-order';
-import { Taxonomy } from '../types/taxonomy';
 import { SfPaginationService } from './pagination.service';
 
 @Injectable({ providedIn: 'any' })
