@@ -35,10 +35,7 @@ export class SfAuthService {
   }
 
   logout(): void {
-    const headers = this.storageService.accessToken
-      ? { Authorization: `Bearer ${this.storageService.accessToken}` }
-      : {};
-    Promise.resolve(this.apiService.postItem(ApiPath.CustomersLogout, {}, headers))
+    Promise.resolve(this.apiService.postItem(ApiPath.CustomersLogout, {}, this.apiService.authHeaders))
       .then(hasLoggedOut => {
         if (hasLoggedOut) {
           this.router.navigate(['/'], { replaceUrl: true })

@@ -3,11 +3,17 @@ import { Params } from '@angular/router';
 import { HEADERS, RequestMethod } from '../constants/api';
 import { Environment } from '../types/environment';
 import { T } from '../types/storefront';
+import { SfStorageService } from './storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class SfApiService {
+  get authHeaders(): object {
+    return this.storageService.accessToken ? { Authorization: `Bearer ${this.storageService.accessToken}` } : {};
+  }
+
   constructor(
     @Inject('env') private readonly env: Environment,
+    private readonly storageService: SfStorageService,
   ) {}
 
   deleteItem(path: string, headers?: object): Promise<T> {

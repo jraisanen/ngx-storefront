@@ -4,10 +4,11 @@ export * from './actions/cart.action';
 export * from './actions/catalog.action';
 export * from './actions/checkout.action';
 export * from './actions/config.action';
+export * from './actions/customer.action';
+export * from './actions/order.action';
 export * from './actions/page.action';
 export * from './actions/product.action';
 export * from './actions/taxonomy.action';
-export * from './actions/customer.action';
 
 export * from './components/banner/banner.module';
 export * from './components/block/block.module';
@@ -49,16 +50,18 @@ export * from './services/taxonomy.service';
 
 export * from './stores/cart.store';
 export * from './stores/config.store';
+export * from './stores/customer.store';
+export * from './stores/order.store';
 export * from './stores/page.store';
 export * from './stores/product.store';
 export * from './stores/taxonomy.store';
-export * from './stores/customer.store';
 
 export * from './types/address';
 export * from './types/block';
 export * from './types/cart';
 export * from './types/config';
 export * from './types/coupon';
+export * from './types/customer';
 export * from './types/environment';
 export * from './types/image';
 export * from './types/menu';
@@ -70,6 +73,5 @@ export * from './types/sort-order';
 export * from './types/storefront';
 export * from './types/taxonomy';
 export * from './types/token';
-export * from './types/customer';
 
 export * from './storefront.module';
