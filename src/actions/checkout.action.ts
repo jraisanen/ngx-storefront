@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { META } from '../constants/meta';
-import { Cart } from '../models/cart.model';
+import { SfCart } from '../models/cart.model';
 import { SfMetaService } from '../services/meta.service';
 import { SfCartAction } from './cart.action';
 
@@ -11,8 +11,8 @@ export class SfCheckoutAction {
     private readonly metaService: SfMetaService,
   ) {}
 
-  fetchView(): Promise<Cart> {
-    const request = this.cartAction.fetchCart() as Promise<Cart>;
+  fetchView(): Promise<SfCart> {
+    const request = this.cartAction.fetchCart() as Promise<SfCart>;
 
     Promise.resolve(request)
       .then(() => this.metaService.data = META.checkout)

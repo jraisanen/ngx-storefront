@@ -1,4 +1,4 @@
-export interface PostCustomer {
+export interface SfPostCustomer {
   customer: {
     firstname: string;
     lastname: string;

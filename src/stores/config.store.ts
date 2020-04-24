@@ -1,28 +1,28 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Config } from '../models/config.model';
+import { SfConfig, SfConfigModel } from '../models/config.model';
 
 @Injectable({ providedIn: 'root' })
 export class SfConfigStore {
-  private readonly _config$: BehaviorSubject<Config> = new BehaviorSubject<Config>(new Config());
-  private readonly _configs$: BehaviorSubject<Config[]> = new BehaviorSubject<Config[]>([]);
+  private readonly _config$: BehaviorSubject<SfConfig> = new BehaviorSubject<SfConfig>(new SfConfigModel());
+  private readonly _configs$: BehaviorSubject<SfConfig[]> = new BehaviorSubject<SfConfig[]>([]);
 
-  readonly config$: Observable<Config> = this._config$.asObservable();
-  readonly configs$: Observable<Config[]> = this._configs$.asObservable();
+  readonly config$: Observable<SfConfig> = this._config$.asObservable();
+  readonly configs$: Observable<SfConfig[]> = this._configs$.asObservable();
 
-  get config(): Config {
+  get config(): SfConfig {
     return this._config$.getValue();
   }
 
-  set config(config: Config) {
-    this._config$.next(new Config(config));
+  set config(config: SfConfig) {
+    this._config$.next(new SfConfigModel(config));
   }
 
-  get configs(): Config[] {
+  get configs(): SfConfig[] {
     return this._configs$.getValue();
   }
 
-  set configs(configs: Config[]) {
-    this._configs$.next(configs.map(config => new Config(config)));
+  set configs(configs: SfConfig[]) {
+    this._configs$.next(configs.map(config => new SfConfigModel(config)));
   }
 }

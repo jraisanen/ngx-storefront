@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { ApiPath } from '../constants/api';
 import { META } from '../constants/meta';
-import { Product } from '../models/product.model';
+import { SfProduct } from '../models/product.model';
 import { SfApiService } from '../services/api.service';
 import { SfMetaService } from '../services/meta.service';
 import { SfProductStore } from '../stores/product.store';
@@ -15,8 +15,8 @@ export class SfProductAction {
     private readonly productStore: SfProductStore,
   ) {}
 
-  fetchProduct(params: Params): Promise<Product> {
-    const request = this.apiService.getItem(`${ApiPath.Products}/${params.key}`) as Promise<Product>;
+  fetchProduct(params: Params): Promise<SfProduct> {
+    const request = this.apiService.getItem(`${ApiPath.Products}/${params.key}`) as Promise<SfProduct>;
 
     Promise.resolve(request)
       .then(product => this.productStore.product = product)
@@ -25,8 +25,8 @@ export class SfProductAction {
     return request;
   }
 
-  fetchProducts(params: Params = {}, loadMore?: boolean): Promise<Product[]> {
-    const request = this.apiService.getItems(ApiPath.Products, params) as Promise<Product[]>;
+  fetchProducts(params: Params = {}, loadMore?: boolean): Promise<SfProduct[]> {
+    const request = this.apiService.getItems(ApiPath.Products, params) as Promise<SfProduct[]>;
 
     Promise.resolve(request)
       .then(products => this.productStore.products = loadMore
@@ -37,8 +37,8 @@ export class SfProductAction {
     return request;
   }
 
-  fetchView(params: Params): Promise<Product> {
-    const request = this.fetchProduct(params) as Promise<Product>;
+  fetchView(params: Params): Promise<SfProduct> {
+    const request = this.fetchProduct(params) as Promise<SfProduct>;
 
     Promise.resolve(request)
       .then(product => {

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { SfCartAction } from '../actions/cart.action';
 import { ApiPath } from '../constants/api';
 import { Direction } from '../constants/cart';
-import { CartItem } from '../models/cart-item.model';
-import { Product } from '../models/product.model';
+import { SfCartItem } from '../models/cart-item.model';
+import { SfProduct } from '../models/product.model';
 import { SfCartStore } from '../stores/cart.store';
 import { SfApiService } from './api.service';
 import { SfStorageService } from './storage.service';
@@ -32,7 +32,7 @@ export class SfCartService {
     private readonly storageService: SfStorageService,
   ) {}
 
-  addItem(product: Product): void {
+  addItem(product: SfProduct): void {
     const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.Items}`;
     const params = { cartItem: { qty: 1, quoteId: this.storageService.cart, sku: product.sku } };
     Promise.resolve(this.apiService.postItem(path, params))
@@ -52,7 +52,7 @@ export class SfCartService {
       .catch(e => console.debug(e));
   }
 
-  removeItem(cartItem: CartItem): void {
+  removeItem(cartItem: SfCartItem): void {
     const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.Items}/${cartItem.item_id}`;
     Promise.resolve(this.apiService.deleteItem(path))
       .then(() => this.cartAction.fetchCart())
@@ -97,7 +97,7 @@ export class SfCartService {
     return request;
   }
 
-  updateItem(cartItem: CartItem, direction: Direction): void {
+  updateItem(cartItem: SfCartItem, direction: Direction): void {
     const qty: number = direction === Direction.Increase ? cartItem.qty + 1 : cartItem.qty - 1;
     if (qty > 0) {
       const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.Items}/${cartItem.item_id}`;

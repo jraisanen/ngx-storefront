@@ -1,28 +1,28 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Product } from '../models/product.model';
+import { SfProduct, SfProductModel } from '../models/product.model';
 
 @Injectable({ providedIn: 'root' })
 export class SfProductStore {
-  private readonly _product$: BehaviorSubject<Product> = new BehaviorSubject<Product>(new Product());
-  private readonly _products$: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
+  private readonly _product$: BehaviorSubject<SfProduct> = new BehaviorSubject<SfProduct>(new SfProductModel());
+  private readonly _products$: BehaviorSubject<SfProduct[]> = new BehaviorSubject<SfProduct[]>([]);
 
-  readonly product$: Observable<Product> = this._product$.asObservable();
-  readonly products$: Observable<Product[]> = this._products$.asObservable();
+  readonly product$: Observable<SfProduct> = this._product$.asObservable();
+  readonly products$: Observable<SfProduct[]> = this._products$.asObservable();
 
-  get product(): Product {
+  get product(): SfProduct {
     return this._product$.getValue();
   }
 
-  set product(product: Product) {
-    this._product$.next(new Product(product));
+  set product(product: SfProduct) {
+    this._product$.next(new SfProductModel(product));
   }
 
-  get products(): Product[] {
+  get products(): SfProduct[] {
     return this._products$.getValue();
   }
 
-  set products(products: Product[]) {
-    this._products$.next(products.map(product => new Product(product)));
+  set products(products: SfProduct[]) {
+    this._products$.next(products.map(product => new SfProductModel(product)));
   }
 }

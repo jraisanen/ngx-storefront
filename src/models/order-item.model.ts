@@ -1,10 +1,12 @@
-import { Base } from './base.model';
+import { SfBaseModel } from './base.model';
 
-export class OrderItem extends Base {
+export class SfOrderItemModel extends SfBaseModel {
   quantity = 0;
 
-  constructor(data?: OrderItem) {
+  constructor(data?: SfOrderItem) {
     super();
     Object.keys(data || {}).forEach(key => this[key] !== undefined && (this[key] = data[key]));
   }
 }
+
+export type SfOrderItem = SfOrderItemModel;

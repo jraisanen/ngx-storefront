@@ -1,6 +1,6 @@
-import { Base } from './base.model';
+import { SfBaseModel } from './base.model';
 
-export class Product extends Base {
+export class SfProductModel extends SfBaseModel {
   name = '';
   key = '';
   sku = '';
@@ -12,8 +12,10 @@ export class Product extends Base {
   categories = [];
   brand = '';
 
-  constructor(data?: Product) {
+  constructor(data?: SfProduct) {
     super();
     Object.keys(data || {}).forEach(key => this[key] !== undefined && (this[key] = data[key]));
   }
 }
+
+export type SfProduct = SfProductModel;

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Product } from '../../models/product.model';
+import { SfProduct } from '../../models/product.model';
 import { SfConfigStore } from '../../stores/config.store';
 
 @Component({
@@ -9,7 +9,7 @@ import { SfConfigStore } from '../../stores/config.store';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SfProductComponent {
-  @Input() readonly product: Product;
+  @Input() readonly product: SfProduct;
 
   constructor(
     readonly configStore: SfConfigStore,

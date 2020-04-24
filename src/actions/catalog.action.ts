@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { META } from '../constants/meta';
-import { Taxonomy } from '../models/taxonomy.model';
+import { SfTaxonomy } from '../models/taxonomy.model';
 import { SfMetaService } from '../services/meta.service';
 import { SfTaxonomyService } from '../services/taxonomy.service';
 import { SfTaxonomyStore } from '../stores/taxonomy.store';
@@ -16,8 +16,8 @@ export class SfCatalogAction {
     private readonly taxonomyStore: SfTaxonomyStore,
   ) {}
 
-  fetchView(routeParams, params: Params = {}): Promise<Taxonomy[]> {
-    const request = this.taxonomyAction.fetchCategories(params) as Promise<Taxonomy[]>;
+  fetchView(routeParams, params: Params = {}): Promise<SfTaxonomy[]> {
+    const request = this.taxonomyAction.fetchCategories(params) as Promise<SfTaxonomy[]>;
 
     Promise.resolve(request)
       .then(categories => {

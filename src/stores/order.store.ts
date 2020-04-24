@@ -1,28 +1,28 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Order } from '../models/order.model';
+import { SfOrder, SfOrderModel } from '../models/order.model';
 
 @Injectable({ providedIn: 'root' })
 export class SfOrderStore {
-  private readonly _order$: BehaviorSubject<Order> = new BehaviorSubject<Order>(new Order());
-  private readonly _orders$: BehaviorSubject<Order[]> = new BehaviorSubject<Order[]>([]);
+  private readonly _order$: BehaviorSubject<SfOrder> = new BehaviorSubject<SfOrder>(new SfOrderModel());
+  private readonly _orders$: BehaviorSubject<SfOrder[]> = new BehaviorSubject<SfOrder[]>([]);
 
-  readonly order$: Observable<Order> = this._order$.asObservable();
-  readonly orders$: Observable<Order[]> = this._orders$.asObservable();
+  readonly order$: Observable<SfOrder> = this._order$.asObservable();
+  readonly orders$: Observable<SfOrder[]> = this._orders$.asObservable();
 
-  get order(): Order {
+  get order(): SfOrder {
     return this._order$.getValue();
   }
 
-  set order(order: Order) {
-    this._order$.next(new Order(order));
+  set order(order: SfOrder) {
+    this._order$.next(new SfOrderModel(order));
   }
 
-  get orders(): Order[] {
+  get orders(): SfOrder[] {
     return this._orders$.getValue();
   }
 
-  set orders(orders: Order[]) {
-    this._orders$.next(orders.map(order => new Order(order)));
+  set orders(orders: SfOrder[]) {
+    this._orders$.next(orders.map(order => new SfOrderModel(order)));
   }
 }

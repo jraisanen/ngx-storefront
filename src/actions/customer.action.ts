@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiPath } from '../constants/api';
-import { Customer } from '../models/customer.model';
+import { SfCustomer } from '../models/customer.model';
 import { SfApiService } from '../services/api.service';
 import { SfCustomerStore } from '../stores/customer.store';
 
@@ -11,8 +11,8 @@ export class SfCustomerAction {
     private readonly customerStore: SfCustomerStore,
   ) {}
 
-  fetchCustomer(): Promise<Customer> {
-    const request = this.apiService.getItem(ApiPath.CustomersMe, this.apiService.authHeaders) as Promise<Customer>;
+  fetchCustomer(): Promise<SfCustomer> {
+    const request = this.apiService.getItem(ApiPath.CustomersMe, this.apiService.authHeaders) as Promise<SfCustomer>;
 
     Promise.resolve(request)
       .then(customer => this.customerStore.customer = customer)

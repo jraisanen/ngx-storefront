@@ -3,7 +3,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { Data } from '@angular/router';
 import { MetaTag } from '../constants/meta';
 import { SfConfigStore } from '../stores/config.store';
-import { Environment } from '../types/environment';
+import { SfEnvironment } from '../types/environment';
 
 @Injectable({ providedIn: 'root' })
 export class SfMetaService {
@@ -30,7 +30,7 @@ export class SfMetaService {
   }
 
   constructor(
-    @Inject('env') private readonly env: Environment,
+    @Inject('env') private readonly env: SfEnvironment,
     private readonly metaService: Meta,
     private readonly configStore: SfConfigStore,
     private readonly titleService: Title,

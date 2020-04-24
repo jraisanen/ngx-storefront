@@ -1,16 +1,18 @@
-import { Image } from './image.model';
-import { MetaAttributes } from './meta-attributes.model';
-import { Base } from './base.model';
+import { SfBaseModel } from './base.model';
+import { SfImageModel } from './image.model';
+import { SfMetaAttributesModel } from './meta-attributes.model';
 
-export class Page extends Base {
+export class SfPageModel extends SfBaseModel {
   key = '';
   title = '';
   content = '';
-  image = new Image();
-  meta = new MetaAttributes();
+  image = new SfImageModel();
+  meta = new SfMetaAttributesModel();
 
-  constructor(data?: Page) {
+  constructor(data?: SfPage) {
     super();
     Object.keys(data || {}).forEach(key => this[key] !== undefined && (this[key] = data[key]));
   }
 }
+
+export type SfPage = SfPageModel;

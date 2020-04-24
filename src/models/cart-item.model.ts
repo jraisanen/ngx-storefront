@@ -1,17 +1,19 @@
-import { ExtensionAttributes } from './extension-attributes.model';
-import { Base } from './base.model';
+import { SfBaseModel } from './base.model';
+import { SfExtensionAttributesModel } from './extension-attributes.model';
 
-export class CartItem extends Base {
+export class SfCartItemModel extends SfBaseModel {
   item_id = 0;
   quote = 0;
   sku = '';
   name = '';
   price = 0;
   qty = 0;
-  extension_attributes = new ExtensionAttributes();
+  extension_attributes = new SfExtensionAttributesModel();
 
-  constructor(data?: CartItem) {
+  constructor(data?: SfCartItem) {
     super();
     Object.keys(data || {}).forEach(key => this[key] !== undefined && (this[key] = data[key]));
   }
 }
+
+export type SfCartItem = SfCartItemModel;

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Image } from '../../../models/image.model';
 
 @Component({
   selector: 'sf-image',
@@ -8,7 +7,7 @@ import { Image } from '../../../models/image.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SfImageComponent {
-  @Input() readonly image = {} as Image;
+  @Input() readonly image;
 
   imageLoader = true;
 }

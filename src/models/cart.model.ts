@@ -1,17 +1,19 @@
-import { Address } from './address.model';
-import { ExtensionAttributes } from './extension-attributes.model';
-import { Base } from './base.model';
+import { SfAddressModel } from './address.model';
+import { SfBaseModel } from './base.model';
+import { SfExtensionAttributesModel } from './extension-attributes.model';
 
-export class Cart extends Base {
+export class SfCartModel extends SfBaseModel {
   key = '';
   couponCode = '';
   currency = '';
   items = [];
-  billing_address = new Address();
-  extension_attributes = new ExtensionAttributes();
+  billing_address = new SfAddressModel();
+  extension_attributes = new SfExtensionAttributesModel();
 
-  constructor(data?: Cart) {
+  constructor(data?: SfCart) {
     super();
     Object.keys(data || {}).forEach(key => this[key] !== undefined && (this[key] = data[key]));
   }
 }
+
+export type SfCart = SfCartModel;

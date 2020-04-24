@@ -1,6 +1,6 @@
-import { SortOrder } from '../types/sort-order';
+import { SfSortOrder } from '../types/sort-order';
 
-export const SORT_ORDER_MENU_ITEMS: SortOrder[] = [
+export const SORT_ORDER_MENU_ITEMS: SfSortOrder[] = [
   {
     label: 'Newest',
     sortBy: 'created_at',

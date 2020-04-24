@@ -1,4 +1,4 @@
-export interface PostCartItem {
+export interface SfPostCartItem {
   cartItem: {
     quoteId: string;
     sku: string;

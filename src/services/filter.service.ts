@@ -4,21 +4,21 @@ import { SfProductAction } from '../actions/product.action';
 import { FilterType } from '../constants/filter';
 import { Pagination } from '../constants/pagination';
 import { SORT_ORDER_MENU_ITEMS } from '../constants/sort-order';
-import { Taxonomy } from '../models/taxonomy.model';
+import { SfTaxonomy } from '../models/taxonomy.model';
 import { SfTaxonomyStore } from '../stores/taxonomy.store';
-import { SortOrder } from '../types/sort-order';
+import { SfSortOrder } from '../types/sort-order';
 import { SfPaginationService } from './pagination.service';
 
 @Injectable({ providedIn: 'any' })
 export class SfFilterService {
-  selectedFilters: Taxonomy[] = [];
+  selectedFilters: SfTaxonomy[] = [];
   selectedSortOrder = SORT_ORDER_MENU_ITEMS[0];
 
   get params(): Params {
     return {
       brands: this.selectedFilters
-        .filter((filter: Taxonomy) => filter.type === FilterType.Brand)
-        .map((brand: Taxonomy) => brand.id) as number[],
+        .filter((filter: SfTaxonomy) => filter.type === FilterType.Brand)
+        .map((brand: SfTaxonomy) => brand.id) as number[],
       category: this.taxonomyStore.category ? this.taxonomyStore.category.id : undefined,
       page: this.paginationService.page,
       limit: Pagination.Limit,
@@ -33,7 +33,7 @@ export class SfFilterService {
     private readonly taxonomyStore: SfTaxonomyStore,
   ) {}
 
-  isFilterActive(taxonomy: Taxonomy): boolean {
+  isFilterActive(taxonomy: SfTaxonomy): boolean {
     return this.selectedFilters.includes(taxonomy);
   }
 
@@ -42,14 +42,14 @@ export class SfFilterService {
     this.updateProducts();
   }
 
-  onFilter(taxonomy: Taxonomy): void {
+  onFilter(taxonomy: SfTaxonomy): void {
     this.selectedFilters = this.isFilterActive(taxonomy)
-      ? this.selectedFilters.filter((item: Taxonomy) => item !== taxonomy)
+      ? this.selectedFilters.filter((item: SfTaxonomy) => item !== taxonomy)
       : [...this.selectedFilters, taxonomy];
     this.updateProducts();
   }
 
-  onSort(item: SortOrder): void {
+  onSort(item: SfSortOrder): void {
     this.selectedSortOrder = item;
     this.updateProducts();
   }

@@ -1,4 +1,4 @@
-export class Config {
+export class SfConfigModel {
   id = 0;
   code = '';
   websiteId = 0;
@@ -10,7 +10,9 @@ export class Config {
   baseUrl = '';
   baseMediaUrl = '';
 
-  constructor(data?: Config) {
+  constructor(data?: SfConfig) {
     Object.keys(data || {}).forEach(key => this[key] !== undefined && (this[key] = data[key]));
   }
 }
+
+export type SfConfig = SfConfigModel;

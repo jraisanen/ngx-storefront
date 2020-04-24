@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Menu } from '../types/menu';
+import { SfMenu } from '../types/menu';
 
 @Injectable({ providedIn: 'any' })
 export class SfMenuService {
-  columnItems(items: Menu[], column: number): Menu[] {
-    return items.filter((item: Menu) => item.column === column);
+  columnItems(items: SfMenu[], column: number): SfMenu[] {
+    return items.filter(item => item.column === column);
   }
 }

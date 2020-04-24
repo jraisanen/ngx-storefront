@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { HEADERS, RequestMethod } from '../constants/api';
-import { Environment } from '../types/environment';
+import { SfEnvironment } from '../types/environment';
 import { T } from '../types/storefront';
 import { SfStorageService } from './storage.service';
 
@@ -12,7 +12,7 @@ export class SfApiService {
   }
 
   constructor(
-    @Inject('env') private readonly env: Environment,
+    @Inject('env') private readonly env: SfEnvironment,
     private readonly storageService: SfStorageService,
   ) {}
 

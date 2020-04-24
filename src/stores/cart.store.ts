@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Cart } from '../models/cart.model';
+import { SfCart, SfCartModel } from '../models/cart.model';
 
 @Injectable({ providedIn: 'root' })
 export class SfCartStore {
-  private readonly _cart$: BehaviorSubject<Cart> = new BehaviorSubject<Cart>(new Cart());
+  private readonly _cart$: BehaviorSubject<SfCart> = new BehaviorSubject<SfCart>(new SfCartModel());
 
-  readonly cart$: Observable<Cart> = this._cart$.asObservable();
+  readonly cart$: Observable<SfCart> = this._cart$.asObservable();
 
-  get cart(): Cart {
+  get cart(): SfCart {
     return this._cart$.getValue();
   }
 
-  set cart(cart: Cart) {
-    this._cart$.next(new Cart(cart));
+  set cart(cart: SfCart) {
+    this._cart$.next(new SfCartModel(cart));
   }
 }

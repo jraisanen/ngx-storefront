@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { ApiPath } from '../constants/api';
-import { Order } from '../models/order.model';
+import { SfOrder } from '../models/order.model';
 import { SfApiService } from '../services/api.service';
 import { SfOrderStore } from '../stores/order.store';
 
@@ -12,9 +12,9 @@ export class SfOrderAction {
     private readonly orderStore: SfOrderStore,
   ) {}
 
-  fetchOrder(params: Params): Promise<Order> {
+  fetchOrder(params: Params): Promise<SfOrder> {
     const path = `${ApiPath.Orders}/${params.key}`;
-    const request = this.apiService.getItem(path, this.apiService.authHeaders) as Promise<Order>;
+    const request = this.apiService.getItem(path, this.apiService.authHeaders) as Promise<SfOrder>;
 
     Promise.resolve(request)
       .then(order => this.orderStore.order = order)
@@ -23,8 +23,9 @@ export class SfOrderAction {
     return request;
   }
 
-  fetchOrders(params: Params = {}, loadMore?: boolean): Promise<Order[]> {
-    const request = this.apiService.getItems(ApiPath.Orders, params, this.apiService.authHeaders) as Promise<Order[]>;
+  fetchOrders(params: Params = {}, loadMore?: boolean): Promise<SfOrder[]> {
+    const path = ApiPath.Orders;
+    const request = this.apiService.getItems(path, params, this.apiService.authHeaders) as Promise<SfOrder[]>;
 
     Promise.resolve(request)
       .then(orders => this.orderStore.orders = loadMore ? [...this.orderStore.orders, ...orders] : orders)

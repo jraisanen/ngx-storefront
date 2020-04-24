@@ -1,6 +1,6 @@
-export interface Menu {
+export interface SfMenu {
   path: string;
   title: string;
-  children?: Menu[];
+  children?: SfMenu[];
   column?: number;
 }

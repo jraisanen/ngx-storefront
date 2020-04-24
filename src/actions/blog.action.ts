@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { META } from '../constants/meta';
-import { Page } from '../models/page.model';
+import { SfPage } from '../models/page.model';
 import { SfMetaService } from '../services/meta.service';
 import { SfPageAction } from './page.action';
 
@@ -12,8 +12,8 @@ export class SfBlogAction {
     private readonly pageAction: SfPageAction,
   ) {}
 
-  fetchView(params: Params = {}): Promise<Page[]> {
-    const request = this.pageAction.fetchPages(params) as Promise<Page[]>;
+  fetchView(params: Params = {}): Promise<SfPage[]> {
+    const request = this.pageAction.fetchPages(params) as Promise<SfPage[]>;
 
     Promise.resolve(request)
       .then(() => this.metaService.data = META.blog)

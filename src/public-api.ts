@@ -35,6 +35,7 @@ export * from './constants/storage';
 export * from './guards/customer.guard';
 
 export * from './models/address.model';
+export * from './models/base.model';
 export * from './models/cart.model';
 export * from './models/cart-item.model';
 export * from './models/config.model';

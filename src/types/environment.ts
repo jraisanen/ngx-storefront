@@ -1,4 +1,4 @@
-export interface Environment {
+export interface SfEnvironment {
   apiUrl: string;
   appName: string;
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { SfCustomerAction } from '../actions/customer.action';
 import { ApiPath } from '../constants/api';
-import { Customer } from '../models/customer.model';
+import { SfCustomer } from '../models/customer.model';
 import { SfCustomerStore } from '../stores/customer.store';
 import { SfApiService } from './api.service';
 import { SfStorageService } from './storage.service';
@@ -17,7 +17,7 @@ export class SfAuthService {
     private readonly storageService: SfStorageService,
   ) {}
 
-  login(customer: Partial<Customer>): Promise<string> {
+  login(customer: Partial<SfCustomer>): Promise<string> {
     const params = { username: customer.email, password: customer.password };
     const request = this.apiService.postItem(ApiPath.CustomersLogin, params) as Promise<string>;
 
@@ -41,7 +41,7 @@ export class SfAuthService {
           this.router.navigate(['/'], { replaceUrl: true })
             .then(() => {
               this.storageService.accessToken = '';
-              this.customerStore.customer = {} as Customer;
+              this.customerStore.customer = {} as SfCustomer;
             })
             .catch(e => console.debug(e));
         }
@@ -49,7 +49,7 @@ export class SfAuthService {
       .catch(e => console.debug(e));
   }
 
-  register(customer: Partial<Customer>): Promise<Customer> {
-    return this.apiService.postItem(ApiPath.CustomersRegister, customer) as Promise<Customer>;
+  register(customer: Partial<SfCustomer>): Promise<SfCustomer> {
+    return this.apiService.postItem(ApiPath.CustomersRegister, customer) as Promise<SfCustomer>;
   }
 }

@@ -1,9 +1,9 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { Environment } from './types/environment';
+import { SfEnvironment } from './types/environment';
 
 @NgModule()
 export class SfStorefrontModule {
-  static forRoot(environment: Environment): ModuleWithProviders {
+  static forRoot(environment: SfEnvironment): ModuleWithProviders {
     return {
       ngModule: SfStorefrontModule,
       providers: [{ provide: 'env', useValue: environment }],

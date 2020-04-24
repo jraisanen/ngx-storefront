@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { ApiPath } from '../constants/api';
 import { META } from '../constants/meta';
-import { Page } from '../models/page.model';
+import { SfPage } from '../models/page.model';
 import { SfApiService } from '../services/api.service';
 import { SfMetaService } from '../services/meta.service';
 import { SfPageStore } from '../stores/page.store';
@@ -15,8 +15,8 @@ export class SfPageAction {
     private readonly pageStore: SfPageStore,
   ) {}
 
-  fetchPage(params: Params): Promise<Page> {
-    const request = this.apiService.getItem(`${ApiPath.Pages}/${params.key}`) as Promise<Page>;
+  fetchPage(params: Params): Promise<SfPage> {
+    const request = this.apiService.getItem(`${ApiPath.Pages}/${params.key}`) as Promise<SfPage>;
 
     Promise.resolve(request)
       .then(page => this.pageStore.page = page)
@@ -25,8 +25,8 @@ export class SfPageAction {
     return request;
   }
 
-  fetchPages(params: Params = {}, loadMore?: boolean): Promise<Page[]> {
-    const request = this.apiService.getItems(ApiPath.Pages, params) as Promise<Page[]>;
+  fetchPages(params: Params = {}, loadMore?: boolean): Promise<SfPage[]> {
+    const request = this.apiService.getItems(ApiPath.Pages, params) as Promise<SfPage[]>;
 
     Promise.resolve(request)
       .then(pages => this.pageStore.pages = loadMore ? [...this.pageStore.pages, ...pages] : pages)
@@ -35,8 +35,8 @@ export class SfPageAction {
     return request;
   }
 
-  fetchView(params: Params): Promise<Page> {
-    const request = this.fetchPage(params) as Promise<Page>;
+  fetchView(params: Params): Promise<SfPage> {
+    const request = this.fetchPage(params) as Promise<SfPage>;
 
     Promise.resolve(request)
       .then(page => {

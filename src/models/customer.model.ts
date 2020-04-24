@@ -1,6 +1,6 @@
-import { Base } from './base.model';
+import { SfBaseModel } from './base.model';
 
-export class Customer extends Base {
+export class SfCustomerModel extends SfBaseModel {
   firstName = '';
   lastName = '';
   phone = '';
@@ -8,8 +8,10 @@ export class Customer extends Base {
   username = '';
   password = '';
 
-  constructor(data?: Customer) {
+  constructor(data?: SfCustomer) {
     super();
     Object.keys(data || {}).forEach(key => this[key] !== undefined && (this[key] = data[key]));
   }
 }
+
+export type SfCustomer = SfCustomerModel;

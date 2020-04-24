@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { Taxonomy } from '../models/taxonomy.model';
+import { SfTaxonomy } from '../models/taxonomy.model';
 
 @Injectable({ providedIn: 'root' })
 export class SfTaxonomyService {
-  findCategory(categories: Taxonomy[], params: Params): Taxonomy | undefined {
-    let category: Taxonomy | undefined;
+  findCategory(categories: SfTaxonomy[], params: Params): SfTaxonomy | undefined {
+    let category: SfTaxonomy | undefined;
 
     Object.values(params).forEach((param, index) => {
       let cs = categories;

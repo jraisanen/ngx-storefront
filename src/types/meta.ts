@@ -1,10 +1,10 @@
-import { MetaAttributes } from '../models/meta-attributes.model';
+import { SfMetaAttributes } from '../models/meta-attributes.model';
 
-export interface Meta {
-  account: MetaAttributes;
-  blog: MetaAttributes;
-  cart: MetaAttributes;
-  checkout: MetaAttributes;
-  home: MetaAttributes;
-  not_found: MetaAttributes;
+export interface SfMeta {
+  account: SfMetaAttributes;
+  blog: SfMetaAttributes;
+  cart: SfMetaAttributes;
+  checkout: SfMetaAttributes;
+  home: SfMetaAttributes;
+  not_found: SfMetaAttributes;
 }

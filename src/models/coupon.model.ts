@@ -1,6 +1,6 @@
-import { Base } from './base.model';
+import { SfBaseModel } from './base.model';
 
-export class Coupon extends Base {
+export class SfCouponModel extends SfBaseModel {
   key = '';
   amount = 0;
   type = '';
@@ -15,8 +15,10 @@ export class Coupon extends Base {
   minAmount = 0;
   maxAmount = 0;
 
-  constructor(data?: Coupon) {
+  constructor(data?: SfCoupon) {
     super();
     Object.keys(data || {}).forEach(key => this[key] !== undefined && (this[key] = data[key]));
   }
 }
+
+export type SfCoupon = SfCouponModel;

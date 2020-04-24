@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Taxonomy } from '../../../models/taxonomy.model';
+import { SfTaxonomy } from '../../../models/taxonomy.model';
 import { SfFilterService } from '../../../services/filter.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { SfFilterService } from '../../../services/filter.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SfCatalogActiveFiltersComponent {
-  @Input() readonly filters: Taxonomy[] = [];
+  @Input() readonly filters: SfTaxonomy[] = [];
 
   constructor(
     readonly filterService: SfFilterService,

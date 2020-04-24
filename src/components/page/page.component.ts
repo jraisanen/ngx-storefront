@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Page } from '../../models/page.model';
+import { SfPage } from '../../models/page.model';
 
 @Component({
   selector: 'sf-page',
@@ -8,5 +8,5 @@ import { Page } from '../../models/page.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SfPageComponent {
-  @Input() readonly page: Page;
+  @Input() readonly page: SfPage;
 }

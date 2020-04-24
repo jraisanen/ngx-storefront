@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { ApiPath } from '../constants/api';
-import { Taxonomy } from '../models/taxonomy.model';
+import { SfTaxonomy } from '../models/taxonomy.model';
 import { SfApiService } from '../services/api.service';
 import { SfTaxonomyStore } from '../stores/taxonomy.store';
 
@@ -12,8 +12,8 @@ export class SfTaxonomyAction {
     private readonly taxonomyStore: SfTaxonomyStore,
   ) {}
 
-  fetchBrands(params: Params = {}, loadMore?: boolean): Promise<Taxonomy[]> {
-    const request = this.apiService.getItems(ApiPath.Brands, params) as Promise<Taxonomy[]>;
+  fetchBrands(params: Params = {}, loadMore?: boolean): Promise<SfTaxonomy[]> {
+    const request = this.apiService.getItems(ApiPath.Brands, params) as Promise<SfTaxonomy[]>;
 
     Promise.resolve(request)
       .then(brands => this.taxonomyStore.brands = loadMore ? [...this.taxonomyStore.brands, ...brands] : brands)
@@ -22,8 +22,8 @@ export class SfTaxonomyAction {
     return request;
   }
 
-  fetchCategories(params: Params = {}, loadMore?: boolean): Promise<Taxonomy[]> {
-    const request = this.apiService.getItems(ApiPath.Categories, params) as Promise<Taxonomy[]>;
+  fetchCategories(params: Params = {}, loadMore?: boolean): Promise<SfTaxonomy[]> {
+    const request = this.apiService.getItems(ApiPath.Categories, params) as Promise<SfTaxonomy[]>;
 
     Promise.resolve(request)
       .then(categories => this.taxonomyStore.categories = loadMore

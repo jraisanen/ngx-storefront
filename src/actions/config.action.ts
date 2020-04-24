@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiPath } from '../constants/api';
-import { Config } from '../models/config.model';
+import { SfConfig } from '../models/config.model';
 import { SfApiService } from '../services/api.service';
 import { SfConfigStore } from '../stores/config.store';
 
@@ -11,8 +11,8 @@ export class SfConfigAction {
     private readonly configStore: SfConfigStore,
   ) {}
 
-  fetchConfigs(): Promise<Config[]> {
-    const request = this.apiService.getItems(ApiPath.Configs) as Promise<Config[]>;
+  fetchConfigs(): Promise<SfConfig[]> {
+    const request = this.apiService.getItems(ApiPath.Configs) as Promise<SfConfig[]>;
 
     Promise.resolve(request)
       .then(configs => this.configStore.configs = configs)

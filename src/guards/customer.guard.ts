@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { SfCustomerAction } from '../actions/customer.action';
-import { Customer } from '../models/customer.model';
+import { SfCustomer } from '../models/customer.model';
 
 @Injectable({ providedIn: 'root' })
 export class SfCustomerGuard implements CanActivate {
@@ -11,7 +11,7 @@ export class SfCustomerGuard implements CanActivate {
   ) {}
 
   async canActivate(): Promise<boolean> {
-    const customer: Customer = await this.customerAction.fetchCustomer();
+    const customer: SfCustomer = await this.customerAction.fetchCustomer();
     if (customer.id) {
       return true;
     }

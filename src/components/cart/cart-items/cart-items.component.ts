@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Direction } from '../../../constants/cart';
-import { Cart } from '../../../models/cart.model';
 import { SfCartService } from '../../../services/cart.service';
 import { SfConfigStore } from '../../../stores/config.store';
 
@@ -13,7 +12,7 @@ const LABELS = ['', 'Name', 'Price', 'Quantity', 'Total Price', ''];
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SfCartItemsComponent {
-  @Input() readonly cart = {} as Cart;
+  @Input() readonly cart;
 
   readonly Direction = Direction;
   readonly labels = LABELS;

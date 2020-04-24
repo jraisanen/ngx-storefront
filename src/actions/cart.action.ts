@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiPath } from '../constants/api';
 import { META } from '../constants/meta';
-import { Cart } from '../models/cart.model';
+import { SfCart } from '../models/cart.model';
 import { SfApiService } from '../services/api.service';
 import { SfMetaService } from '../services/meta.service';
 import { SfStorageService } from '../services/storage.service';
@@ -16,8 +16,8 @@ export class SfCartAction {
     private readonly storageService: SfStorageService,
   ) {}
 
-  fetchCart(): Promise<Cart> {
-    const request = this.apiService.getItem(`${ApiPath.GuestCarts}/${this.storageService.cart}`) as Promise<Cart>;
+  fetchCart(): Promise<SfCart> {
+    const request = this.apiService.getItem(`${ApiPath.GuestCarts}/${this.storageService.cart}`) as Promise<SfCart>;
 
     Promise.resolve(request)
       .then(cart => this.cartStore.cart = cart)
@@ -26,8 +26,8 @@ export class SfCartAction {
     return request;
   }
 
-  fetchView(): Promise<Cart> {
-    const request = this.fetchCart() as Promise<Cart>;
+  fetchView(): Promise<SfCart> {
+    const request = this.fetchCart() as Promise<SfCart>;
 
     Promise.resolve(request)
       .then(() => this.metaService.data = META.cart)

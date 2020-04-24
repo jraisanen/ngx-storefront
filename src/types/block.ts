@@ -1,7 +1,7 @@
-import { Image } from '../models/image.model';
+import { SfImage } from '../models/image.model';
 
-export interface Block {
-  image: Image;
+export interface SfBlock {
+  image: SfImage;
   key: string;
   name: string;
 }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Block } from '../../types/block';
+import { SfBlock } from '../../types/block';
 
 @Component({
   selector: 'sf-block',
@@ -8,5 +8,5 @@ import { Block } from '../../types/block';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SfBlockComponent {
-  @Input() readonly block = {} as Block;
+  @Input() readonly block: SfBlock;
 }

@@ -1,8 +1,10 @@
-export class Image {
+export class SfImageModel {
   src = '';
   alt = '';
 
-  constructor(data?: Image) {
+  constructor(data?: SfImage) {
     Object.keys(data || {}).forEach(key => this[key] !== undefined && (this[key] = data[key]));
   }
 }
+
+export type SfImage = SfImageModel;

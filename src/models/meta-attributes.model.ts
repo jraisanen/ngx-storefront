@@ -1,9 +1,11 @@
-export class MetaAttributes {
+export class SfMetaAttributesModel {
   title = '';
   description = '';
   url = '';
 
-  constructor(data?: MetaAttributes) {
+  constructor(data?: SfMetaAttributes) {
     Object.keys(data || {}).forEach(key => this[key] !== undefined && (this[key] = data[key]));
   }
 }
+
+export type SfMetaAttributes = SfMetaAttributesModel;
