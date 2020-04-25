@@ -2,12 +2,33 @@
 @import '../../styles/mixins';
 
 :host {
+  @include fill(fixed);
+
   display: none;
   background: rgba(0, 0, 0, 0.5);
-
-  @include fill(fixed);
+  z-index: 10000;
 
   &.active {
     display: block;
+  }
+
+  > sf-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $color-white;
+    width: 600px;
+    max-width: 100%;
+    padding: 100px;
+
+    > .close {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      cursor: pointer;
+
+      @include size(30px);
+    }
   }
 }
