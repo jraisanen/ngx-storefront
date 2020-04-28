@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { SfProduct } from '../../models/product.model';
-import { SfConfigStore } from '../../stores/config.store';
+import { SfImageService } from '../../services/image.service';
 
 @Component({
   selector: 'sf-product',
@@ -12,6 +12,6 @@ export class SfProductComponent {
   @Input() readonly product: SfProduct;
 
   constructor(
-    readonly configStore: SfConfigStore,
+    readonly imageService: SfImageService,
   ) {}
 }

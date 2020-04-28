@@ -1,4 +1,1 @@
-<div
-  [style.background-image]="image ? 'url(' + configStore.config.baseMediaUrl + 'catalog/category/' + image + ')' : ''"
-  class="background-image"
-></div>
+<div [style.background-image]="image ? 'url(' + imageService.categoryImageUrl(image) + ')' : ''"></div>

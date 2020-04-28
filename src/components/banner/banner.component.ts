@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { SfConfigStore } from '../../stores/config.store';
+import { SfImageService } from '../../services/image.service';
 
 @Component({
   selector: 'sf-banner',
@@ -11,6 +11,6 @@ export class SfBannerComponent {
   @Input() image: string | undefined;
 
   constructor(
-    readonly configStore: SfConfigStore,
+    readonly imageService: SfImageService,
   ) {}
 }

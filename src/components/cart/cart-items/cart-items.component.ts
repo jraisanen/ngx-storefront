@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Direction } from '../../../constants/cart';
 import { SfCartService } from '../../../services/cart.service';
-import { SfConfigStore } from '../../../stores/config.store';
+import { SfImageService } from '../../../services/image.service';
 
 const LABELS = ['', 'Name', 'Price', 'Quantity', 'Total Price', ''];
 
@@ -19,6 +19,6 @@ export class SfCartItemsComponent {
 
   constructor(
     readonly cartService: SfCartService,
-    readonly configStore: SfConfigStore,
+    readonly imageService: SfImageService,
   ) {}
 }

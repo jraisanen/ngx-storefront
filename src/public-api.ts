@@ -54,6 +54,7 @@ export * from './services/api.service';
 export * from './services/auth.service';
 export * from './services/cart.service';
 export * from './services/filter.service';
+export * from './services/image.service';
 export * from './services/menu.service';
 export * from './services/meta.service';
 export * from './services/modal.service';
