@@ -3,6 +3,6 @@
 :host {
   display: flex;
   flex-flow: wrap;
+  flex-grow: inherit;
   margin: -$margin-small;
-  width: 100%;
 }
