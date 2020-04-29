@@ -75,6 +75,7 @@ export * from './types/customer';
 export * from './types/environment';
 export * from './types/menu';
 export * from './types/meta';
+export * from './types/modal';
 export * from './types/sort-order';
 export * from './types/storefront';
 
