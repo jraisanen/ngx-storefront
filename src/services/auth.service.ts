@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { SfCustomerAction } from '../actions/customer.action';
 import { ApiPath } from '../constants/api';
-import { SfCustomer } from '../models/customer.model';
+import { SfCustomer, SfCustomerModel } from '../models/customer.model';
 import { SfCustomerStore } from '../stores/customer.store';
 import { SfApiService } from './api.service';
 import { SfStorageService } from './storage.service';
@@ -41,7 +41,7 @@ export class SfAuthService {
           this.router.navigate(['/'], { replaceUrl: true })
             .then(() => {
               this.storageService.accessToken = '';
-              this.customerStore.customer = {} as SfCustomer;
+              this.customerStore.customer = new SfCustomerModel();
             })
             .catch(e => console.debug(e));
         }
