@@ -53,7 +53,7 @@ export class SfCartService {
   }
 
   removeItem(cartItem: SfCartItem): void {
-    const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.Items}/${cartItem.item_id}`;
+    const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.Items}/${cartItem.id}`;
     Promise.resolve(this.apiService.deleteItem(path))
       .then(() => this.cartAction.fetchCart())
       .catch(e => console.debug(e));
@@ -100,7 +100,7 @@ export class SfCartService {
   updateItem(cartItem: SfCartItem, direction: Direction): void {
     const qty: number = direction === Direction.Increase ? cartItem.qty + 1 : cartItem.qty - 1;
     if (qty > 0) {
-      const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.Items}/${cartItem.item_id}`;
+      const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.Items}/${cartItem.id}`;
       const params = { cartItem: { qty, quoteId: this.storageService.cart, sku: cartItem.sku } };
       Promise.resolve(this.apiService.putItem(path, params))
         .then(() => this.cartAction.fetchCart())

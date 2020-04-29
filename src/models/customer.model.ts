@@ -1,16 +1,25 @@
-import { SfBaseModel } from './base.model';
+import { number, string } from '../utils/types';
 
-export class SfCustomerModel extends SfBaseModel {
-  firstName = '';
-  lastName = '';
-  phone = '';
-  email = '';
-  username = '';
-  password = '';
+export class SfCustomerModel {
+  readonly id: number;
+  readonly firstName: string;
+  readonly lastName: string;
+  readonly phone: string;
+  readonly email: string;
+  readonly username: string;
+  readonly password: string;
 
-  constructor(data?: SfCustomer) {
-    super();
-    Object.keys(data || {}).forEach(key => this[key] !== undefined && (this[key] = data[key]));
+  constructor(data?: any) {
+    if (!data) {
+      return;
+    }
+    this.id = number(data.id);
+    this.firstName = string(data.firstname);
+    this.lastName = string(data.lastname);
+    this.phone = string(data.phone);
+    this.email = string(data.email);
+    this.username = string(data.username);
+    this.password = string(data.password);
   }
 }
 

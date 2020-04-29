@@ -7,10 +7,10 @@
   <sf-column>
     <sf-row *ngFor="let item of cart.items">
       <sf-container class="image">
-        <sf-image [image]="{ src: imageService.productImage(item), alt: item.name }"></sf-image>
+        <sf-image [image]="imageService.productImage(item)"></sf-image>
       </sf-container>
       <sf-container class="name">
-        <a routerLink="/product/{{item.extension_attributes.key}}">{{item.name}}</a>
+        <a routerLink="/product/{{item.key}}">{{item.name}}</a>
       </sf-container>
       <sf-container class="unit-price">
         <span>{{item.price}}</span>

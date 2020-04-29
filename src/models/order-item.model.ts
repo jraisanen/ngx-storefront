@@ -1,11 +1,19 @@
-import { SfBaseModel } from './base.model';
+import { number, string } from '../utils/types';
 
-export class SfOrderItemModel extends SfBaseModel {
-  quantity = 0;
+export class SfOrderItemModel {
+  readonly id: number;
+  readonly name: string;
+  readonly orderId: number;
+  readonly qty: number;
 
-  constructor(data?: SfOrderItem) {
-    super();
-    Object.keys(data || {}).forEach(key => this[key] !== undefined && (this[key] = data[key]));
+  constructor(data?: any) {
+    if (!data) {
+      return;
+    }
+    this.id = number(data.id);
+    this.name = string(data.name);
+    this.orderId = number(data.orderId);
+    this.qty = number(data.qty);
   }
 }
 

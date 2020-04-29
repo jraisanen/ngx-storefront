@@ -1,18 +1,30 @@
-import { SfBaseModel } from './base.model';
-import { SfExtensionAttributesModel } from './extension-attributes.model';
+import { number, string } from '../utils/types';
+import { SfImage, SfImageModel } from './image.model';
 
-export class SfCartItemModel extends SfBaseModel {
-  item_id = 0;
-  quote = 0;
-  sku = '';
-  name = '';
-  price = 0;
-  qty = 0;
-  extension_attributes = new SfExtensionAttributesModel();
+export class SfCartItemModel {
+  readonly id: number;
+  readonly cartId: number;
+  readonly images: SfImage[];
+  readonly key: string;
+  readonly name: string;
+  readonly price: number;
+  readonly qty: number;
+  readonly sku: string;
 
-  constructor(data?: SfCartItem) {
-    super();
-    Object.keys(data || {}).forEach(key => this[key] !== undefined && (this[key] = data[key]));
+  constructor(data?: any) {
+    if (!data) {
+      return;
+    }
+    this.id = number(data.item_id);
+    this.cartId = number(data.quote_id);
+    if (data.extension_attributes) {
+      this.images = (data.extension_attributes.images || []).map(image => new SfImageModel(image));
+      this.key = string(data.extension_attributes.key);
+    }
+    this.name = string(data.name);
+    this.price = number(data.price);
+    this.qty = number(data.qty);
+    this.sku = string(data.sku);
   }
 }
 

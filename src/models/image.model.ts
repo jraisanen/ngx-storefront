@@ -1,9 +1,15 @@
-export class SfImageModel {
-  src = '';
-  alt = '';
+import { string } from '../utils/types';
 
-  constructor(data?: SfImage) {
-    Object.keys(data || {}).forEach(key => this[key] !== undefined && (this[key] = data[key]));
+export class SfImageModel {
+  readonly src: string;
+  readonly alt: string;
+
+  constructor(data?: any) {
+    if (!data) {
+      return;
+    }
+    this.src = string(data.src || data);
+    this.alt = string(data.alt);
   }
 }
 

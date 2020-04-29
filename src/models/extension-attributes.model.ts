@@ -1,9 +1,18 @@
+import { string } from '../utils/types';
+import { SfImage, SfImageModel } from './image.model';
+
 export class SfExtensionAttributesModel {
-  key = '';
-  images = [];
+  readonly key: string;
+  readonly images: SfImage[];
+  readonly shippingAssignments: any[];
 
   constructor(data?: SfExtensionAttributes) {
-    Object.keys(data || {}).forEach(key => this[key] !== undefined && (this[key] = data[key]));
+    if (!data) {
+      return;
+    }
+    this.key = string(data.key);
+    this.images = (data.images || []).map(image => new SfImageModel(image));
+    this.shippingAssignments = (data.shippingAssignments || []).map(shippingAssignment => shippingAssignment);
   }
 }
 

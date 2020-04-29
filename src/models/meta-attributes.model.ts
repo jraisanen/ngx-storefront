@@ -1,10 +1,17 @@
-export class SfMetaAttributesModel {
-  title = '';
-  description = '';
-  url = '';
+import { string } from '../utils/types';
 
-  constructor(data?: SfMetaAttributes) {
-    Object.keys(data || {}).forEach(key => this[key] !== undefined && (this[key] = data[key]));
+export class SfMetaAttributesModel {
+  readonly title: string;
+  readonly description: string;
+  readonly url: string;
+
+  constructor(data?: any) {
+    if (!data) {
+      return;
+    }
+    this.title = string(data.title);
+    this.description = string(data.description);
+    this.url = string(data.url);
   }
 }
 

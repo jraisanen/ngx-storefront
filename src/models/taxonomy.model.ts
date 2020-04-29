@@ -1,19 +1,30 @@
-import { SfBaseModel } from './base.model';
-import { SfImageModel } from './image.model';
+import { SfImage, SfImageModel } from './image.model';
+import { number, string } from '../utils/types';
 
-export class SfTaxonomyModel extends SfBaseModel {
-  key = '';
-  name = '';
-  description = '';
-  parent = 0;
-  type = '';
-  image = new SfImageModel();
-  products = 0;
-  level = 0;
+export class SfTaxonomyModel {
+  readonly id: number;
+  readonly key: string;
+  readonly name: string;
+  readonly description: string;
+  readonly parent: number;
+  readonly type: string;
+  readonly image: SfImage;
+  readonly products: number;
+  readonly level: number;
 
-  constructor(data?: SfTaxonomy) {
-    super();
-    Object.keys(data || {}).forEach(key => this[key] !== undefined && (this[key] = data[key]));
+  constructor(data?: any) {
+    if (!data) {
+      return;
+    }
+    this.id = number(data.id);
+    this.key = string(data.key);
+    this.name = string(data.name);
+    this.description = string(data.description);
+    this.parent = number(data.parent);
+    this.type = string(data.type);
+    this.image = new SfImageModel(data.image);
+    this.products = number(data.products);
+    this.level = number(data.level);
   }
 }
 
