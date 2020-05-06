@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { HEADERS, RequestMethod } from '../constants/api';
@@ -13,53 +14,49 @@ export class SfApiService {
 
   constructor(
     @Inject('env') private readonly env: SfEnvironment,
+    private readonly http: HttpClient,
     private readonly storageService: SfStorageService,
   ) {}
 
   deleteItem(path: string, headers?: object): Promise<T> {
-    const init = { headers: this._headers(headers), method: RequestMethod.Delete };
-    return this._request(path, init) as Promise<T>;
+    const options = { headers: this._headers(headers) };
+    return this._request(RequestMethod.Delete, path, options) as Promise<T>;
   }
 
   getItem(path: string, headers?: object): Promise<T> {
-    const init = { headers: this._headers(headers), method: RequestMethod.Get };
-    return this._request(path, init) as Promise<T>;
+    const options = { headers: this._headers(headers) };
+    return this._request(RequestMethod.Get, path, options) as Promise<T>;
   }
 
   getItems(path: string, params: Params = {}, headers?: object): Promise<T[]> {
-    const init = { headers: this._headers(headers), method: RequestMethod.Get };
-    return this._request(path, init, params) as Promise<T[]>;
+    const options = { headers: this._headers(headers) };
+    return this._request(RequestMethod.Get, path, options, params) as Promise<T[]>;
   }
 
   patchItem(path: string, item: Partial<T>, headers?: object): Promise<T> {
-    const init = { body: JSON.stringify(item), headers: this._headers(headers), method: RequestMethod.Patch };
-    return this._request(path, init) as Promise<T>;
+    const options = { body: JSON.stringify(item), headers: this._headers(headers) };
+    return this._request(RequestMethod.Patch, path, options) as Promise<T>;
   }
 
   postItem(path: string, item: Partial<T>, headers?: object): Promise<T> {
-    const init = { body: JSON.stringify(item), headers: this._headers(headers), method: RequestMethod.Post };
-    return this._request(path, init) as Promise<T>;
+    const options = { body: JSON.stringify(item), headers: this._headers(headers) };
+    return this._request(RequestMethod.Post, path, options) as Promise<T>;
   }
 
   putItem(path: string, item: Partial<T>, headers?: object): Promise<T> {
-    const init = { body: JSON.stringify(item), headers: this._headers(headers), method: RequestMethod.Put };
-    return this._request(path, init) as Promise<T>;
+    const options = { body: JSON.stringify(item), headers: this._headers(headers) };
+    return this._request(RequestMethod.Put, path, options) as Promise<T>;
   }
 
-  private _headers(headers?: object): Headers {
-    return new Headers(headers ? { ...HEADERS, ...headers } : HEADERS);
+  private _headers(headers?: object): HttpHeaders {
+    return new HttpHeaders(headers ? { ...HEADERS, ...headers } : HEADERS);
   }
 
-  private async _request(path: string, init?: RequestInit, params?: Params): Promise<T | T[]> {
+  private async _request(method: RequestMethod, path: string, options?: object, params?: Params): Promise<T | T[]> {
     try {
-      const response = await fetch(this._url(this.env.apiUrl, path, params), init);
-      if (response.ok) {
-        const data = await response.json();
-        if (data instanceof Array && !params) {
-          return data[0] || {};
-        }
-        return data;
-      }
+      const url = this._url(this.env.apiUrl, path, params);
+      const response = await this.http.request<T | T[]>(method, url, options).toPromise();
+      return response instanceof Array && !params ? (response[0] || {} as T) : response;
     } catch (e) {
       console.debug(e);
     }
