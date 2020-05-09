@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "",
   "projects": {
-    "storefront": {
+    "ngx-storefront": {
       "projectType": "library",
       "root": "src",
       "sourceRoot": "src",
@@ -19,5 +19,5 @@
       }
     }
   },
-  "defaultProject": "storefront"
+  "defaultProject": "ngx-storefront"
 }
