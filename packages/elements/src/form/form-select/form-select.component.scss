@@ -1,0 +1,53 @@
+:host {
+  position: relative;
+  white-space: nowrap;
+
+  > .title {
+    > button {
+      position: relative;
+      padding-right: 30px;
+      cursor: pointer;
+
+      &::after {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        width: 20px;
+        height: 20px;
+        transform: translateY(-50%) rotate(180deg);
+        transition: transform 200ms ease;
+      }
+
+      &.active {
+        &::after {
+          transform: translateY(-50%) rotate(270deg);
+        }
+      }
+
+      > span {
+        > strong {
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  > ul {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    z-index: 10;
+    background: #fff;
+    box-shadow: 0 0 3px #999;
+
+    &.active {
+      display: block;
+    }
+
+    > li {
+      padding: 15px;
+      cursor: pointer;
+    }
+  }
+}

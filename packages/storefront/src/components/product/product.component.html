@@ -1,0 +1,5 @@
+<a [routerLink]="'/product/' + product.key"></a>
+<ngx-image [image]="imageService.productImage(product)"></ngx-image>
+<strong>{{ product.brand }}</strong>
+<span class="name">{{ product.name }}</span>
+<span>{{ product.price | currency: 'EUR' }}</span>

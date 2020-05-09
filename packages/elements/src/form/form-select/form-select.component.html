@@ -1,0 +1,12 @@
+<div class="title">
+  <button [class.active]="isSelectActive"
+    class="icon icon-chevron icon-after icon-small"
+    (click)="isSelectActive = !isSelectActive">
+    <span><strong>{{label}}</strong> {{selectedOption.label}}</span>
+  </button>
+</div>
+<ul [class.active]="isSelectActive">
+  <li *ngFor="let option of options" (click)="onSelect(option)">
+    {{option.label}}
+  </li>
+</ul>

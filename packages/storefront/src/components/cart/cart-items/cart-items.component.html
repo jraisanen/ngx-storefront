@@ -1,0 +1,37 @@
+<ngx-column>
+  <ngx-row>
+    <ngx-container *ngFor="let label of labels">
+      <strong *ngIf="label">{{label}}</strong>
+    </ngx-container>
+  </ngx-row>
+  <ngx-column>
+    <ngx-row *ngFor="let item of cart.items">
+      <ngx-container class="image">
+        <ngx-image [image]="imageService.productImage(item)"></ngx-image>
+      </ngx-container>
+      <ngx-container class="name">
+        <a routerLink="/product/{{item.key}}">{{item.name}}</a>
+      </ngx-container>
+      <ngx-container class="unit-price">
+        <span>{{item.price}}</span>
+      </ngx-container>
+      <ngx-container class="quantity">
+        <button
+          class="icon icon-minus icon-before icon-small"
+          (click)="cartService.updateItem(item, Direction.Decrease)"
+        ></button>
+        <span>{{item.qty}}</span>
+        <button
+          class="icon icon-plus icon-before icon-small"
+          (click)="cartService.updateItem(item, Direction.Increase)"
+        ></button>
+      </ngx-container>
+      <ngx-container class="total-price">
+        <span>{{item.price * item.qty}}</span>
+      </ngx-container>
+      <ngx-container class="delete">
+        <button class="icon icon-close icon-before icon-small" (click)="cartService.removeItem(item)"></button>
+      </ngx-container>
+    </ngx-row>
+  </ngx-column>
+</ngx-column>

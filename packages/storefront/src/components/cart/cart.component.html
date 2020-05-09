@@ -1,0 +1,32 @@
+<ng-template #component let-cart="cart">
+  <button class="icon icon-cart icon-before icon-medium" (click)="onDropdown($event)">
+    <ng-container *ngIf="cartService.totalQuantity as totalQuantity">
+      <span *ngIf="totalQuantity > 0">{{ totalQuantity }}</span>
+    </ng-container>
+  </button>
+
+  <div *ngIf="isDropdownActive" class="dropdown cart" (click)="$event.stopPropagation()">
+    <ng-container *ngIf="cart.items?.length">
+      <sf-cart-items [cart]="cart" class="dropdown"></sf-cart-items>
+      <sf-cart-summary></sf-cart-summary>
+      <ngx-row>
+        <ngx-container>
+          <button routerLink="/cart" class="secondary" (click)="isDropdownActive = false">Cart</button>
+        </ngx-container>
+        <ngx-container>
+          <button routerLink="/checkout" class="primary" (click)="isDropdownActive = false">Checkout</button>
+        </ngx-container>
+      </ngx-row>
+    </ng-container>
+
+    <ng-container *ngIf="!cart.items?.length">
+      <p>The shopping cart is empty.</p>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-container
+  *ngTemplateOutlet="component; context: {
+    cart: cartStore.cart$ | async
+  }"
+></ng-container>

@@ -1,0 +1,7 @@
+{
+  "name": "@jraisanen/ngx-layout",
+  "version": "0.1.0",
+  "peerDependencies": {
+    "@angular/core": "~9.1.6"
+  }
+}
