@@ -1,6 +1,0 @@
-{
-  "extends": [
-    "@jraisanen/eslint-config-typescript"
-  ],
-  "parser": "@typescript-eslint/parser"
-}

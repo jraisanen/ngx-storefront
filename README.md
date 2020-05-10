@@ -1,1 +1,1 @@
-# Angular storefront
+# Storefront
