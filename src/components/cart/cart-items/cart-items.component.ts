@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Direction } from '../../../constants/cart';
-import { SfCartModel } from '../../../models/cart.model';
-import { SfCartService } from '../../../services/cart.service';
-import { SfImageService } from '../../../services/image.service';
+import { Direction } from '../../../constants';
+import { SfCartModel } from '../../../models';
+import { SfCartService, SfImageService } from '../../../services';
 
 const LABELS = ['', 'Name', 'Price', 'Quantity', 'Total Price', ''];
 

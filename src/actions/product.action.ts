@@ -1,55 +1,39 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { ApiPath } from '../constants/api';
-import { META } from '../constants/meta';
-import { SfProduct } from '../models/product.model';
-import { SfApiService } from '../services/api.service';
-import { SfMetaService } from '../services/meta.service';
-import { SfProductStore } from '../stores/product.store';
+import { createAction, props, Store } from '@ngrx/store';
+import { LoadMore } from '../constants';
+import { SfProduct } from '../models';
+import { SfState } from '../reducers';
+
+export enum ProductActionType {
+  GetProduct = '[Product] Get Product',
+  GetProducts = '[Product] Get Products',
+}
+
+interface ProductParams {
+  product: SfProduct;
+}
+
+interface GetProductsParams extends LoadMore {
+  params: Params;
+}
+
+export const ProductAction = {
+  getProduct: createAction(ProductActionType.GetProduct, props<ProductParams>()),
+  getProducts: createAction(ProductActionType.GetProducts, props<GetProductsParams>()),
+}
 
 @Injectable({ providedIn: 'root' })
 export class SfProductAction {
   constructor(
-    private readonly apiService: SfApiService,
-    private readonly metaService: SfMetaService,
-    private readonly productStore: SfProductStore,
+    private readonly store: Store<SfState>,
   ) {}
 
-  async fetchProduct(params: Params): Promise<SfProduct> {
-    const request = this.apiService.getItem(`${ApiPath.Products}/${params.key}`) as Promise<SfProduct>;
-
-    Promise.resolve(request)
-      .then(product => this.productStore.product = product)
-      .catch(e => console.debug(e));
-
-    return request;
+  getProduct(params: ProductParams): void {
+    this.store.dispatch(ProductAction.getProduct(params));
   }
 
-  async fetchProducts(params: Params = {}, loadMore?: boolean): Promise<SfProduct[]> {
-    const request = this.apiService.getItems(ApiPath.Products, params) as Promise<SfProduct[]>;
-
-    Promise.resolve(request)
-      .then(products => this.productStore.products = loadMore
-        ? [...this.productStore.products, ...products]
-        : products)
-      .catch(e => console.debug(e));
-
-    return request;
-  }
-
-  async fetchView(params: Params): Promise<SfProduct> {
-    const request = this.fetchProduct(params);
-
-    Promise.resolve(request)
-      .then(product => {
-        this.metaService.data = product.id ? {
-          description: product.name,
-          title: product.name,
-          url: `product/${product.key}`,
-        } : META.not_found;
-      })
-      .catch(e => console.debug(e));
-
-    return request;
+  getProducts(params: GetProductsParams): void {
+    this.store.dispatch(ProductAction.getProducts(params));
   }
 }

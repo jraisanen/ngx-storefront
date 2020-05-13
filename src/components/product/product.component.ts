@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { SfProductModel } from '../../models/product.model';
-import { SfImageService } from '../../services/image.service';
+import { SfProductModel } from '../../models';
+import { SfImageService } from '../../services';
 
 @Component({
   selector: 'sf-product',

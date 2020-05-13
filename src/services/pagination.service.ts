@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { PAGE_BOTTOM_OFFSET, Pagination } from '../constants/pagination';
-import { T } from '../types/storefront';
+import { PAGE_BOTTOM_OFFSET, Pagination } from '../constants';
+import { SfModel } from '../models';
 
 @Injectable({ providedIn: 'any' })
 export class SfPaginationService {
@@ -8,7 +8,7 @@ export class SfPaginationService {
   limit = Pagination.Limit;
   page = Pagination.Page;
 
-  loadMore(items: T[], request: () => Promise<T[]>): void {
+  loadMore(items: SfModel[], request: () => Promise<SfModel[]>): void {
     const shouldLoadMore = window.innerHeight + window.scrollY >= document.body.offsetHeight - PAGE_BOTTOM_OFFSET
       && items.length >= this.limit * this.page
       && !this.isLoading;

@@ -1,23 +1,28 @@
 import { Injectable } from '@angular/core';
-import { ApiPath } from '../constants/api';
-import { SfConfig } from '../models/config.model';
-import { SfApiService } from '../services/api.service';
-import { SfConfigStore } from '../stores/config.store';
+import { createAction, Store } from '@ngrx/store';
+import { SfState } from '../reducers';
+
+export enum ConfigActionType {
+  GetConfig = '[Config] Get Config',
+  GetConfigs = '[Config] Get Configs',
+}
+
+export const ConfigAction = {
+  getConfig: createAction(ConfigActionType.GetConfig),
+  getConfigs: createAction(ConfigActionType.GetConfigs),
+}
 
 @Injectable({ providedIn: 'root' })
 export class SfConfigAction {
   constructor(
-    private readonly apiService: SfApiService,
-    private readonly configStore: SfConfigStore,
+    private readonly store: Store<SfState>,
   ) {}
 
-  async fetchConfigs(): Promise<SfConfig[]> {
-    const request = this.apiService.getItems(ApiPath.Configs) as Promise<SfConfig[]>;
+  getConfig(): void {
+    this.store.dispatch(ConfigAction.getConfig());
+  }
 
-    Promise.resolve(request)
-      .then(configs => this.configStore.configs = configs)
-      .catch(e => console.debug(e));
-
-    return request;
+  getConfigs(): void {
+    this.store.dispatch(ConfigAction.getConfigs());
   }
 }

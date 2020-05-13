@@ -1,35 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { ApiPath } from '../constants/api';
-import { SfTaxonomy } from '../models/taxonomy.model';
-import { SfApiService } from '../services/api.service';
-import { SfTaxonomyStore } from '../stores/taxonomy.store';
+import { createAction, props, Store } from '@ngrx/store';
+import { LoadMore } from '../constants';
+import { SfTaxonomy } from '../models';
+import { SfState } from '../reducers';
+
+export enum TaxonomyActionType {
+  GetBrands = '[Taxonomy] Get Brands',
+  GetCategories = '[Taxonomy] Get Categories',
+  GetCategory = '[Taxonomy] Get Category',
+}
+
+interface CategoryParams {
+  category: SfTaxonomy;
+}
+
+interface TaxonomyParams extends LoadMore {
+  params: Params;
+}
+
+export const TaxonomyAction = {
+  getBrands: createAction(TaxonomyActionType.GetBrands, props<TaxonomyParams>()),
+  getCategories: createAction(TaxonomyActionType.GetCategories, props<TaxonomyParams>()),
+  getCategory: createAction(TaxonomyActionType.GetCategory, props<CategoryParams>()),
+}
 
 @Injectable({ providedIn: 'root' })
 export class SfTaxonomyAction {
   constructor(
-    private readonly apiService: SfApiService,
-    private readonly taxonomyStore: SfTaxonomyStore,
+    private readonly store: Store<SfState>,
   ) {}
 
-  async fetchBrands(params: Params = {}, loadMore?: boolean): Promise<SfTaxonomy[]> {
-    const request = this.apiService.getItems(ApiPath.Brands, params) as Promise<SfTaxonomy[]>;
-
-    Promise.resolve(request)
-      .then(brands => this.taxonomyStore.brands = loadMore ? [...this.taxonomyStore.brands, ...brands] : brands)
-      .catch(e => console.debug(e));
-
-    return request;
+  getBrands(params: TaxonomyParams): void {
+    this.store.dispatch(TaxonomyAction.getBrands(params));
   }
 
-  async fetchCategories(params: Params = {}, loadMore?: boolean): Promise<SfTaxonomy[]> {
-    const request = this.apiService.getItems(ApiPath.Categories, params) as Promise<SfTaxonomy[]>;
+  getCategories(params: TaxonomyParams): void {
+    this.store.dispatch(TaxonomyAction.getCategories(params));
+  }
 
-    Promise.resolve(request)
-      .then(categories => this.taxonomyStore.categories = loadMore
-        ? [...this.taxonomyStore.categories, ...categories] : categories)
-      .catch(e => console.debug(e));
-
-    return request;
+  getCategory(params: CategoryParams): void {
+    this.store.dispatch(TaxonomyAction.getCategory(params));
   }
 }

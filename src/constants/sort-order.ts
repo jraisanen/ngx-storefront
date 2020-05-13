@@ -1,4 +1,4 @@
-import { SfSortOrder } from '../types/sort-order';
+import { SfSortOrder } from '../types';
 
 export const SORT_ORDER_MENU_ITEMS: SfSortOrder[] = [
   {

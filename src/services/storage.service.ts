@@ -1,5 +1,5 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { LOCAL_STORAGE, StorageKey } from '../constants/storage';
+import { LOCAL_STORAGE, StorageKey } from '../constants';
 
 @Injectable({ providedIn: 'root' })
 export class SfStorageService {

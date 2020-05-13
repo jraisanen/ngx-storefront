@@ -1,7 +1,13 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { SfEnvironment } from './types/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { effects } from './effects';
+import { reducers } from './reducers';
+import { SfEnvironment } from './types';
 
-@NgModule()
+@NgModule({
+  imports: [StoreModule.forRoot(reducers), EffectsModule.forRoot(effects)],
+})
 export class SfStorefrontModule {
   static forRoot(environment: SfEnvironment): ModuleWithProviders {
     return {

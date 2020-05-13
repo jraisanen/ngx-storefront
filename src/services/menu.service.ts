@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SfMenu } from '../types/menu';
+import { SfMenu } from '../types';
 
 @Injectable({ providedIn: 'any' })
 export class SfMenuService {

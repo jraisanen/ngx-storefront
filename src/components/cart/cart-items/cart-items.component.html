@@ -30,7 +30,7 @@
         <span>{{item.price * item.qty}}</span>
       </ngx-container>
       <ngx-container class="delete">
-        <button class="icon icon-close icon-before icon-small" (click)="cartService.removeItem(item)"></button>
+        <button class="icon icon-close icon-before icon-small" (click)="cartService.removeCartItem(item)"></button>
       </ngx-container>
     </ngx-row>
   </ngx-column>

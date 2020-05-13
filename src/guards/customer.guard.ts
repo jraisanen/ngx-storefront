@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { SfCustomerAction } from '../actions/customer.action';
-import { SfCustomer } from '../models/customer.model';
+import { SfCustomer } from '../models';
+import { SfCustomerService } from '../services';
 
 @Injectable({ providedIn: 'root' })
 export class SfCustomerGuard implements CanActivate {
   constructor(
-    private readonly customerAction: SfCustomerAction,
+    private readonly customerService: SfCustomerService,
     private readonly router: Router,
   ) {}
 
   async canActivate(): Promise<boolean> {
-    const customer: SfCustomer = await this.customerAction.fetchCustomer();
+    const customer: SfCustomer = await this.customerService.getCustomer().toPromise();
     if (customer.id) {
       return true;
     }

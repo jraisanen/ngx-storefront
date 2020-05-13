@@ -1,112 +1,99 @@
 import { Injectable } from '@angular/core';
-import { SfCartAction } from '../actions/cart.action';
-import { ApiPath } from '../constants/api';
-import { Direction } from '../constants/cart';
-import { SfCartItem } from '../models/cart-item.model';
-import { SfProduct } from '../models/product.model';
-import { SfCartStore } from '../stores/cart.store';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { SfCartAction } from '../actions';
+import { ApiPath, Direction } from '../constants';
+import { SfCart, SfCartItem, SfCartModel, SfProduct } from '../models';
+import { SfState } from '../reducers';
+import { selectCart } from '../selectors';
+import { SfPostCartItem } from '../types';
 import { SfApiService } from './api.service';
 import { SfStorageService } from './storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class SfCartService {
+  cart$ = this.store.select(selectCart);
+
   paymentMethods: any;
   selectedEmail = '';
   selectedPaymentMethod: any;
   shippingMethods: any;
 
-  get totalPrice(): number {
-    const { items } = this.cartStore.cart;
-    return items ? items.reduce((price, item) => price + (item.price * item.qty), 0) : 0;
+  private _cart = new SfCartModel();
+
+  get cart(): SfCart {
+    return this._cart;
   }
 
-  get totalQuantity(): number {
-    const { items } = this.cartStore.cart;
-    return items ? items.reduce((qty, item) => qty + item.qty, 0) : 0;
+  get cartItemsPath(): string {
+    return `${this.cartPath}/${ApiPath.Items}`;
+  }
+
+  get cartPath(): string {
+    return `${ApiPath.GuestCarts}/${this.storageService.cart}`;
   }
 
   constructor(
     private readonly apiService: SfApiService,
     private readonly cartAction: SfCartAction,
-    private readonly cartStore: SfCartStore,
     private readonly storageService: SfStorageService,
-  ) {}
-
-  addItem(product: SfProduct): void {
-    const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.Items}`;
-    const params = { cartItem: { qty: 1, quoteId: this.storageService.cart, sku: product.sku } };
-    Promise.resolve(this.apiService.postItem(path, params))
-      .then(async () => this.cartAction.fetchCart())
-      .catch(e => console.debug(e));
+    private readonly store: Store<SfState>,
+  ) {
+    this.cart$.subscribe(cart => this._cart = cart as SfCart);
   }
 
-  initCart(): void {
-    Promise.resolve(this.apiService.postItem(ApiPath.GuestCarts, {}))
-      .then(cart => {
-        if (cart && typeof cart === 'string') {
-          this.storageService.cart = cart;
-          Promise.resolve(this.cartAction.fetchCart())
-            .catch(e => console.debug(e));
-        }
-      })
-      .catch(e => console.debug(e));
+  addCartItem({ sku }: SfProduct, qty: number): Observable<any> {
+    const params: SfPostCartItem = { cartItem: { sku, qty, quoteId: this.storageService.cart } };
+    return this.apiService.postItem(this.cartItemsPath, params) as Observable<any>;
   }
 
-  removeItem(cartItem: SfCartItem): void {
-    const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.Items}/${cartItem.id}`;
-    Promise.resolve(this.apiService.deleteItem(path))
-      .then(async () => this.cartAction.fetchCart())
-      .catch(e => console.debug(e));
+  getCart(): Observable<SfCart> {
+    return this.apiService.getItem(this.cartPath) as Observable<SfCart>;
   }
 
-  async setOrder(data: any): Promise<any> {
-    const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.PaymentInformation}`;
-    const request = this.apiService.postItem(path, data);
-
-    Promise.resolve(request)
-      .then(response => Number(response) ? this.initCart() : undefined)
-      .catch(e => console.debug(e));
-
-    return request;
+  initCart(): Observable<string> {
+    return this.apiService.postItem(ApiPath.GuestCarts, {}) as Observable<string>;
   }
 
-  async setPaymentMethod(data: any): Promise<any> {
-    const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.SelectedPaymentMethod}`;
-    return this.apiService.putItem(path, data);
+  removeCartItem({ id }: SfCartItem): Observable<any> {
+    return this.apiService.deleteItem(`${this.cartItemsPath}/${id}`) as Observable<any>;
   }
 
-  async setShippingInformation(data: any): Promise<any> {
-    const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.ShippingInformation}`;
-    const request = this.apiService.postItem(path, data);
-
-    Promise.resolve(request)
-      .then((response: any) => this.paymentMethods = response.payment_methods)
-      .catch(e => console.debug(e));
-
-    return request;
+  setOrder(data: any): Observable<any> {
+    return this.apiService.postItem(`${this.cartPath}/${ApiPath.PaymentInformation}`, data) as Observable<any>;
   }
 
-  async setShippingMethods(): Promise<any> {
-    const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.ShippingMethods}`;
-    const request = this.apiService.getItem(path);
+  setPaymentMethod(data: any): Observable<any> {
+    return this.apiService.putItem(`${this.cartPath}/${ApiPath.SelectedPaymentMethod}`, data) as Observable<any>;
+  }
 
-    Promise.resolve(request)
-      .then(shippingMethods => this.shippingMethods = shippingMethods)
-      .catch(e => console.debug(e));
+  setShippingInformation(data: any): Observable<any> {
+    return this.apiService.postItem(`${this.cartPath}/${ApiPath.ShippingInformation}`, data) as Observable<any>;
+  }
 
-    return request;
+  setShippingMethods(): Observable<any> {
+    return this.apiService.getItem(`${this.cartPath}/${ApiPath.ShippingMethods}`) as Observable<any>;
+  }
+
+  totalPrice({ items }: SfCart): number {
+    return items?.reduce((price, item) => price + (item.price * item.qty), 0) || 0;
+  }
+
+  totalQuantity({ items }: SfCart): number {
+    return items?.reduce((qty, item) => qty + item.qty, 0) || 0;
+  }
+
+  updateCartItem({ id, sku }: SfCartItem, qty: number): Observable<any> {
+    const params = { cartItem: { sku, qty, quoteId: this.storageService.cart } };
+    return this.apiService.putItem(`${this.cartItemsPath}/${id}`, params) as Observable<any>;
   }
 
   updateItem(cartItem: SfCartItem, direction: Direction): void {
     const qty: number = direction === Direction.Increase ? cartItem.qty + 1 : cartItem.qty - 1;
     if (qty > 0) {
-      const path = `${ApiPath.GuestCarts}/${this.storageService.cart}/${ApiPath.Items}/${cartItem.id}`;
-      const params = { cartItem: { qty, quoteId: this.storageService.cart, sku: cartItem.sku } };
-      Promise.resolve(this.apiService.putItem(path, params))
-        .then(async () => this.cartAction.fetchCart())
-        .catch(e => console.debug(e));
+      this.cartAction.updateCartItem({ cartItem, qty });
     } else {
-      this.removeItem(cartItem);
+      this.cartAction.removeCartItem({ cartItem });
     }
   }
 }

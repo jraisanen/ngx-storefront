@@ -1,38 +1,87 @@
 import { Injectable } from '@angular/core';
-import { ApiPath } from '../constants/api';
-import { META } from '../constants/meta';
-import { SfCart } from '../models/cart.model';
-import { SfApiService } from '../services/api.service';
-import { SfMetaService } from '../services/meta.service';
-import { SfStorageService } from '../services/storage.service';
-import { SfCartStore } from '../stores/cart.store';
+import { createAction, props, Store } from '@ngrx/store';
+import { SfCartItem, SfProduct } from '../models';
+import { SfState } from '../reducers';
+
+export enum CartActionType {
+  AddCartItem = '[Cart] Add Cart Item',
+  GetCart = '[Cart] Get Cart',
+  InitCart = '[Cart] Init Cart',
+  RemoveCartItem = '[Cart] Remove Cart Item',
+  SetOrder = '[Cart] Set Order',
+  SetPaymentMethod = '[Cart] Set Payment Method',
+  SetShippingInformation = '[Cart] Set Shipping Information',
+  SetShippingMethods = '[Cart] Set Shipping Methods',
+  UpdateCartItem = '[Cart] Update Cart Item',
+}
+
+interface AddCartItemParams {
+  product: SfProduct;
+}
+
+interface CartParams {
+  data: any;
+}
+
+interface CartItemParams {
+  cartItem: SfCartItem;
+}
+
+interface UpdateCartItemParams extends CartItemParams {
+  qty: number;
+}
+
+export const CartAction = {
+  addCartItem: createAction(CartActionType.AddCartItem, props<AddCartItemParams>()),
+  getCart: createAction(CartActionType.GetCart),
+  initCart: createAction(CartActionType.InitCart),
+  removeCartItem: createAction(CartActionType.RemoveCartItem, props<CartItemParams>()),
+  setOrder: createAction(CartActionType.SetOrder, props<CartParams>()),
+  setPaymentMethod: createAction(CartActionType.SetPaymentMethod, props<CartParams>()),
+  setShippingInformation: createAction(CartActionType.SetShippingInformation, props<CartParams>()),
+  setShippingMethods: createAction(CartActionType.SetShippingMethods),
+  updateCartItem: createAction(CartActionType.UpdateCartItem, props<UpdateCartItemParams>()),
+}
 
 @Injectable({ providedIn: 'root' })
 export class SfCartAction {
   constructor(
-    private readonly apiService: SfApiService,
-    private readonly cartStore: SfCartStore,
-    private readonly metaService: SfMetaService,
-    private readonly storageService: SfStorageService,
+    private readonly store: Store<SfState>,
   ) {}
 
-  async fetchCart(): Promise<SfCart> {
-    const request = this.apiService.getItem(`${ApiPath.GuestCarts}/${this.storageService.cart}`) as Promise<SfCart>;
-
-    Promise.resolve(request)
-      .then(cart => this.cartStore.cart = cart)
-      .catch(e => console.debug(e));
-
-    return request;
+  addCartItem(params: AddCartItemParams): void {
+    this.store.dispatch(CartAction.addCartItem(params));
   }
 
-  async fetchView(): Promise<SfCart> {
-    const request = this.fetchCart();
+  getCart(): void {
+    this.store.dispatch(CartAction.getCart());
+  }
 
-    Promise.resolve(request)
-      .then(() => this.metaService.data = META.cart)
-      .catch(e => console.debug(e));
+  initCart(): void {
+    this.store.dispatch(CartAction.initCart());
+  }
 
-    return request;
+  removeCartItem(params: CartItemParams): void {
+    this.store.dispatch(CartAction.removeCartItem(params));
+  }
+
+  setOrder(params: CartParams): void {
+    this.store.dispatch(CartAction.setOrder(params));
+  }
+
+  setPaymentMethod(params: CartParams): void {
+    this.store.dispatch(CartAction.setPaymentMethod(params));
+  }
+
+  setShippingInformation(params: CartParams): void {
+    this.store.dispatch(CartAction.setShippingInformation(params));
+  }
+
+  setShippingMethods(): void {
+    this.store.dispatch(CartAction.setShippingMethods());
+  }
+
+  updateCartItem(params: UpdateCartItemParams): void {
+    this.store.dispatch(CartAction.updateCartItem(params));
   }
 }

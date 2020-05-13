@@ -1,6 +1,6 @@
 <ng-template #component let-cart="cart">
   <button class="icon icon-cart icon-before icon-medium" (click)="onDropdown($event)">
-    <ng-container *ngIf="cartService.totalQuantity as totalQuantity">
+    <ng-container *ngIf="cartService.totalQuantity(cart) as totalQuantity">
       <span *ngIf="totalQuantity > 0">{{ totalQuantity }}</span>
     </ng-container>
   </button>
@@ -8,7 +8,7 @@
   <div *ngIf="isDropdownActive" class="dropdown cart" (click)="$event.stopPropagation()">
     <ng-container *ngIf="cart.items?.length">
       <sf-cart-items [cart]="cart" class="dropdown"></sf-cart-items>
-      <sf-cart-summary></sf-cart-summary>
+      <sf-cart-summary [cart]="cart"></sf-cart-summary>
       <ngx-row>
         <ngx-container>
           <button routerLink="/cart" class="secondary" (click)="isDropdownActive = false">Cart</button>
@@ -27,6 +27,6 @@
 
 <ng-container
   *ngTemplateOutlet="component; context: {
-    cart: cartStore.cart$ | async
+    cart: cartService.cart$ | async
   }"
 ></ng-container>

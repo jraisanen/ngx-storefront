@@ -1,4 +1,4 @@
-import { SfMeta } from '../types/meta';
+import { SfMeta } from '../types';
 
 export const META: SfMeta = {
   account: {

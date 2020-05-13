@@ -1,30 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Image, ImageModel } from '@jraisanen/ngx-elements';
-import { SfConfigStore } from '../stores/config.store';
-import { SfProduct } from '../models/product.model';
-import { SfTaxonomy } from '../models/taxonomy.model';
+import { SfCartItem, SfProduct, SfTaxonomy } from '../models';
+import { SfConfigService } from './config.service';
 
 @Injectable({ providedIn: 'root' })
 export class SfImageService {
   constructor(
-    private readonly configStore: SfConfigStore,
+    private readonly configService: SfConfigService,
   ) {}
 
-  categoryImage(category: SfTaxonomy): Image {
-    const image = category.image ? category.image.src : '';
-    return new ImageModel({ src: this.categoryImageUrl(image), alt: category.name });
+  categoryImage({ image, name }: SfTaxonomy): Image {
+    return new ImageModel({ src: this.categoryImageUrl(image?.src || ''), alt: name });
   }
 
   categoryImageUrl(image: string): string {
-    return this.configStore.config.baseMediaUrl + 'catalog/category/' + image;
+    return `${this.configService.config.baseMediaUrl}catalog/category/${image}`;
   }
 
-  productImage(product: SfProduct): Image {
-    const image = product.images && product.images[0] ? product.images[0].src : '';
-    return new ImageModel({ src: this.productImageUrl(image), alt: product.name });
+  productImage({ images, name }: SfProduct | SfCartItem, index = 0): Image {
+    return new ImageModel({ src: this.productImageUrl(images?.[index]?.src || ''), alt: name });
   }
 
   productImageUrl(image: string): string {
-    return this.configStore.config.baseMediaUrl + 'catalog/product/' + image;
+    return `${this.configService.config.baseMediaUrl}catalog/product/${image}`;
   }
 }

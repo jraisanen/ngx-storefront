@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { SfProductAction } from '../actions/product.action';
-import { FilterType } from '../constants/filter';
-import { Pagination } from '../constants/pagination';
-import { SORT_ORDER_MENU_ITEMS } from '../constants/sort-order';
-import { SfTaxonomy } from '../models/taxonomy.model';
-import { SfTaxonomyStore } from '../stores/taxonomy.store';
-import { SfSortOrder } from '../types/sort-order';
+import { SfProductAction } from '../actions';
+import { FilterType, Pagination, SORT_ORDER_MENU_ITEMS } from '../constants';
+import { SfTaxonomy } from '../models';
+import { SfSortOrder } from '../types';
 import { SfPaginationService } from './pagination.service';
+import { SfTaxonomyService } from './taxonomy.service';
 
 @Injectable({ providedIn: 'any' })
 export class SfFilterService {
@@ -19,7 +17,7 @@ export class SfFilterService {
       brands: this.selectedFilters
         .filter((filter: SfTaxonomy) => filter.type === FilterType.Brand)
         .map((brand: SfTaxonomy) => brand.id),
-      category: this.taxonomyStore.category ? this.taxonomyStore.category.id : undefined,
+      category: this.taxonomyService.category?.id || undefined,
       page: this.paginationService.page,
       limit: Pagination.Limit,
       sortBy: this.selectedSortOrder.sortBy,
@@ -30,7 +28,7 @@ export class SfFilterService {
   constructor(
     private readonly paginationService: SfPaginationService,
     private readonly productAction: SfProductAction,
-    private readonly taxonomyStore: SfTaxonomyStore,
+    private readonly taxonomyService: SfTaxonomyService,
   ) {}
 
   isFilterActive(taxonomy: SfTaxonomy): boolean {
@@ -56,7 +54,6 @@ export class SfFilterService {
 
   updateProducts(): void {
     this.paginationService.reset();
-    Promise.resolve(this.productAction.fetchProducts(this.params))
-      .catch(e => console.debug(e));
+    this.productAction.getProducts({ params: this.params });
   }
 }

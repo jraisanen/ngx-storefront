@@ -1,4 +1,4 @@
-import { SfMetaAttributes } from '../models/meta-attributes.model';
+import { SfMetaAttributes } from '../models';
 
 export interface SfMeta {
   account: SfMetaAttributes;

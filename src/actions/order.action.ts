@@ -1,36 +1,39 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { ApiPath } from '../constants/api';
-import { SfOrder } from '../models/order.model';
-import { SfApiService } from '../services/api.service';
-import { SfOrderStore } from '../stores/order.store';
+import { createAction, props, Store } from '@ngrx/store';
+import { LoadMore } from '../constants';
+import { SfOrder } from '../models';
+import { SfState } from '../reducers';
+
+export enum OrderActionType {
+  GetOrder = '[Order] Get Order',
+  GetOrders = '[Order] Get Orders',
+}
+
+interface OrderParams {
+  order: SfOrder;
+}
+
+interface GetOrdersParams extends LoadMore {
+  params: Params;
+}
+
+export const OrderAction = {
+  getOrder: createAction(OrderActionType.GetOrder, props<OrderParams>()),
+  getOrders: createAction(OrderActionType.GetOrders, props<GetOrdersParams>()),
+}
 
 @Injectable({ providedIn: 'root' })
 export class SfOrderAction {
   constructor(
-    private readonly apiService: SfApiService,
-    private readonly orderStore: SfOrderStore,
+    private readonly store: Store<SfState>,
   ) {}
 
-  async fetchOrder(params: Params): Promise<SfOrder> {
-    const path = `${ApiPath.Orders}/${params.key}`;
-    const request = this.apiService.getItem(path, this.apiService.authHeaders) as Promise<SfOrder>;
-
-    Promise.resolve(request)
-      .then(order => this.orderStore.order = order)
-      .catch(e => console.debug(e));
-
-    return request;
+  getOrder(params: OrderParams): void {
+    this.store.dispatch(OrderAction.getOrder(params));
   }
 
-  async fetchOrders(params: Params = {}, loadMore?: boolean): Promise<SfOrder[]> {
-    const path = ApiPath.Orders;
-    const request = this.apiService.getItems(path, params, this.apiService.authHeaders) as Promise<SfOrder[]>;
-
-    Promise.resolve(request)
-      .then(orders => this.orderStore.orders = loadMore ? [...this.orderStore.orders, ...orders] : orders)
-      .catch(e => console.debug(e));
-
-    return request;
+  getOrders(params: GetOrdersParams): void {
+    this.store.dispatch(OrderAction.getOrders(params));
   }
 }

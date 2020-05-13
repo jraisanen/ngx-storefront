@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SfCartService } from '../../../services/cart.service';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { SfCartModel } from '../../../models';
+import { SfCartService } from '../../../services';
 
 @Component({
   selector: 'sf-cart-summary',
@@ -8,6 +9,8 @@ import { SfCartService } from '../../../services/cart.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SfCartSummaryComponent {
+  @Input() readonly cart = new SfCartModel();
+
   constructor(
     readonly cartService: SfCartService,
   ) {}
